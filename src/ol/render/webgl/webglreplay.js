@@ -475,7 +475,7 @@ ol.render.webgl.ImageReplay.prototype.finish = function(context) {
           goog.webgl.UNSIGNED_BYTE, image);
       goog.object.set(texturePerImage, uid, texture);
     }
-    this.textures_[i] = texture;
+    this.textures_[i] = texture || null;
   }
 
   goog.asserts.assert(this.textures_.length == this.groupIndices_.length);

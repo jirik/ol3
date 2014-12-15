@@ -79,7 +79,7 @@ ol.renderer.dom.VectorLayer = function(mapRenderer, vectorLayer) {
 
   /**
    * @private
-   * @type {goog.vec.Mat4.Number}
+   * @type {!goog.vec.Mat4.Number}
    */
   this.transform_ = goog.vec.Mat4.createNumber();
 
