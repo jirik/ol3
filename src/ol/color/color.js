@@ -243,7 +243,7 @@ ol.color.fromStringInternal_ = function(s) {
     color = [r, g, b, 1];
     return ol.color.normalize(color, color);
   } else {
-    goog.asserts.fail(s + ' is not a valid color');
+    throw new Error(s + ' is not a valid color');
   }
 
 };
