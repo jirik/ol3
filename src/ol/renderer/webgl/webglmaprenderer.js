@@ -126,10 +126,6 @@ ol.renderer.webgl.Map = function(container, map) {
    * @type {ol.structs.PriorityQueue.<Array>}
    */
   this.tileTextureQueue_ = new ol.structs.PriorityQueue(
-      /**
-       * @param {Array.<*>} element Element.
-       * @return {number} Priority.
-       */
       goog.bind(
           /**
            * @param {Array.<*>} element Element.
@@ -299,7 +295,7 @@ ol.renderer.webgl.Map.prototype.dispatchComposeEvent_ =
       var contrast = 1;
       var hue = 0;
       var saturation = 1;
-      replayGroup.replay(context, center, resolution, rotation, size, extent,
+      replayGroup.replay(context, center, resolution, rotation, size,
           pixelRatio, opacity, brightness, contrast, hue, saturation, {});
     }
     replayGroup.getDeleteResourcesFunction(context)();
