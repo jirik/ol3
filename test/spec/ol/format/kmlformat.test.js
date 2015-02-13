@@ -8,6 +8,18 @@ describe('ol.format.KML', function() {
     format = new ol.format.KML();
   });
 
+  describe('#readProjection', function() {
+    it('returns the default projection from document', function() {
+      var projection = format.readProjectionFromDocument();
+      expect(projection).to.eql(ol.proj.get('EPSG:4326'));
+    });
+
+    it('returns the default projection from node', function() {
+      var projection = format.readProjectionFromNode();
+      expect(projection).to.eql(ol.proj.get('EPSG:4326'));
+    });
+  });
+
   describe('#readFeatures', function() {
 
     describe('id', function() {
@@ -2473,6 +2485,45 @@ describe('ol.format.KML', function() {
           '  </Document>' +
           '</kml>';
       expect(format.readName(kml)).to.be('Document name');
+    });
+
+  });
+
+  describe('#readNetworkLinks', function() {
+    it('returns empty array if no network links found', function() {
+      var text =
+          '<kml xmlns="http://www.opengis.net/kml/2.2">' +
+          '  <Document>' +
+          '  </Document>' +
+          '</kml>';
+      var nl = format.readNetworkLinks(text);
+      expect(nl).to.have.length(0);
+    });
+
+    it('returns an array of network links', function() {
+      var text =
+          '<kml xmlns="http://www.opengis.net/kml/2.2">' +
+          '  <Document>' +
+          '    <NetworkLink>' +
+          '      <name>bar</name>' +
+          '      <Link>' +
+          '        <href>bar/bar.kml</href>' +
+          '      </Link>' +
+          '    </NetworkLink>' +
+          '  </Document>' +
+          '  <Folder>' +
+          '    <NetworkLink>' +
+          '      <Link>' +
+          '        <href>http://foo.com/foo.kml</href>' +
+          '      </Link>' +
+          '    </NetworkLink>' +
+          '  </Folder>' +
+          '</kml>';
+      var nl = format.readNetworkLinks(text);
+      expect(nl).to.have.length(2);
+      expect(nl[0].name).to.be('bar');
+      expect(nl[0].href).to.be('bar/bar.kml');
+      expect(nl[1].href).to.be('http://foo.com/foo.kml');
     });
 
   });

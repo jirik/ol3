@@ -6,6 +6,7 @@ goog.require('goog.dom.TagName');
 goog.require('ol.color');
 goog.require('ol.has');
 goog.require('ol.render.canvas');
+goog.require('ol.structs.IHasChecksum');
 goog.require('ol.style.Fill');
 goog.require('ol.style.Image');
 goog.require('ol.style.ImageState');
@@ -59,12 +60,6 @@ ol.style.RegularShape = function(options) {
    * @type {Array.<number>}
    */
   this.origin_ = [0, 0];
-
-  /**
-   * @private
-   * @type {Array.<number>}
-   */
-  this.hitDetectionOrigin_ = [0, 0];
 
   /**
    * @private
@@ -152,6 +147,15 @@ ol.style.RegularShape.prototype.getAnchor = function() {
 
 
 /**
+ * @return {number} Shape's rotation in radians.
+ * @api
+ */
+ol.style.RegularShape.prototype.getAngle = function() {
+  return this.angle_;
+};
+
+
+/**
  * @return {ol.style.Fill} Fill style.
  * @api
  */
@@ -211,10 +215,11 @@ ol.style.RegularShape.prototype.getOrigin = function() {
 
 
 /**
- * @inheritDoc
+ * @return {number} Number of points for stars and regular polygons.
+ * @api
  */
-ol.style.RegularShape.prototype.getHitDetectionOrigin = function() {
-  return this.hitDetectionOrigin_;
+ol.style.RegularShape.prototype.getPoints = function() {
+  return this.points_;
 };
 
 
@@ -352,12 +357,10 @@ ol.style.RegularShape.prototype.render_ = function(atlasManager) {
 
     if (hasCustomHitDetectionImage) {
       this.hitDetectionCanvas_ = info.hitImage;
-      this.hitDetectionOrigin_ = [info.hitOffsetX, info.hitOffsetY];
       this.hitDetectionImageSize_ =
           [info.hitImage.width, info.hitImage.height];
     } else {
       this.hitDetectionCanvas_ = this.canvas_;
-      this.hitDetectionOrigin_ = this.origin_;
       this.hitDetectionImageSize_ = [imageSize, imageSize];
     }
   }

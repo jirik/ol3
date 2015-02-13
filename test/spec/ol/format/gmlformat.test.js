@@ -1066,6 +1066,47 @@ describe('ol.format.GML3', function() {
 
   });
 
+  describe('when parsing only a boundedBy element and no geometry', function() {
+
+    var features;
+    before(function(done) {
+      afterLoadText('spec/ol/format/gml/only-boundedby.xml', function(xml) {
+        try {
+          features = new ol.format.GML().readFeatures(xml);
+        } catch (e) {
+          done(e);
+        }
+        done();
+      });
+    });
+
+    it('creates a feature without a geometry', function() {
+      var feature = features[0];
+      expect(feature.getGeometry()).to.be(undefined);
+    });
+
+  });
+
+  describe('when parsing from OGR', function() {
+
+    var features;
+    before(function(done) {
+      afterLoadText('spec/ol/format/gml/ogr.xml', function(xml) {
+        try {
+          features = new ol.format.GML().readFeatures(xml);
+        } catch (e) {
+          done(e);
+        }
+        done();
+      });
+    });
+
+    it('reads all features', function() {
+      expect(features.length).to.be(1);
+    });
+
+  });
+
 });
 
 

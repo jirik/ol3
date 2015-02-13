@@ -70,6 +70,7 @@ ol.style.Image = function(options) {
 
 /**
  * @return {number} Opacity.
+ * @api
  */
 ol.style.Image.prototype.getOpacity = function() {
   return this.opacity_;
@@ -78,6 +79,7 @@ ol.style.Image.prototype.getOpacity = function() {
 
 /**
  * @return {boolean} Rotate with map.
+ * @api
  */
 ol.style.Image.prototype.getRotateWithView = function() {
   return this.rotateWithView_;
@@ -104,6 +106,7 @@ ol.style.Image.prototype.getScale = function() {
 
 /**
  * @return {boolean} Snap to pixel?
+ * @api
  */
 ol.style.Image.prototype.getSnapToPixel = function() {
   return this.snapToPixel_;
@@ -156,13 +159,6 @@ ol.style.Image.prototype.getHitDetectionImageSize = goog.abstractMethod;
  * @return {Array.<number>} Origin.
  */
 ol.style.Image.prototype.getOrigin = goog.abstractMethod;
-
-
-/**
- * @function
- * @return {Array.<number>} Origin for the hit-detection image.
- */
-ol.style.Image.prototype.getHitDetectionOrigin = goog.abstractMethod;
 
 
 /**

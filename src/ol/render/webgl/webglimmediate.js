@@ -2,6 +2,7 @@ goog.provide('ol.render.webgl.Immediate');
 goog.require('goog.array');
 goog.require('goog.object');
 goog.require('ol.extent');
+goog.require('ol.render.IVectorContext');
 goog.require('ol.render.webgl.ReplayGroup');
 
 
@@ -118,7 +119,7 @@ ol.render.webgl.Immediate.prototype.drawCircleGeometry =
  * @api
  */
 ol.render.webgl.Immediate.prototype.drawFeature = function(feature, style) {
-  var geometry = feature.getGeometry();
+  var geometry = style.getGeometryFunction()(feature);
   if (!goog.isDefAndNotNull(geometry) ||
       !ol.extent.intersects(this.extent_, geometry.getExtent())) {
     return;
