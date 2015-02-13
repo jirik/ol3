@@ -539,7 +539,7 @@ ol.render.webgl.ImageReplay.prototype.createTextures_ =
           gl, image, goog.webgl.CLAMP_TO_EDGE, goog.webgl.CLAMP_TO_EDGE);
       texturePerImage[uid] = texture;
     }
-    textures_[i] = texture || null;
+    textures[i] = texture;
   }
 };
 
