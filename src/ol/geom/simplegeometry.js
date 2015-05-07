@@ -5,6 +5,7 @@ goog.require('goog.functions');
 goog.require('goog.object');
 goog.require('ol.extent');
 goog.require('ol.geom.Geometry');
+goog.require('ol.geom.GeometryLayout');
 goog.require('ol.geom.flat.transform');
 
 
@@ -98,6 +99,7 @@ ol.geom.SimpleGeometry.prototype.computeExtent = function(extent) {
 
 
 /**
+ * Return the first coordinate of the geometry.
  * @return {ol.Coordinate} First coordinate.
  * @api stable
  */
@@ -115,6 +117,7 @@ ol.geom.SimpleGeometry.prototype.getFlatCoordinates = function() {
 
 
 /**
+ * Return the last coordinate of the geometry.
  * @return {ol.Coordinate} Last point.
  * @api stable
  */
@@ -124,6 +127,7 @@ ol.geom.SimpleGeometry.prototype.getLastCoordinate = function() {
 
 
 /**
+ * Return the {@link ol.geom.GeometryLayout layout} of the geometry.
  * @return {ol.geom.GeometryLayout} Layout.
  * @api stable
  */
@@ -249,10 +253,8 @@ ol.geom.SimpleGeometry.prototype.applyTransform = function(transformFn) {
 
 
 /**
- * Translate the geometry.
- * @param {number} deltaX Delta X.
- * @param {number} deltaY Delta Y.
- * @api
+ * @inheritDoc
+ * @api stable
  */
 ol.geom.SimpleGeometry.prototype.translate = function(deltaX, deltaY) {
   var flatCoordinates = this.getFlatCoordinates();
