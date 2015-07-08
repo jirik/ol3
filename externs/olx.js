@@ -1,3 +1,4 @@
+
 /**
  * @type {Object}
  */
@@ -226,7 +227,10 @@ olx.MapOptions.prototype.keyboardEventTarget;
 
 
 /**
- * Layers. If this is not defined, a map with no layers will be rendered.
+ * Layers. If this is not defined, a map with no layers will be rendered. Note
+ * that layers are rendered in the order supplied, so if you want, for example,
+ * a vector layer to appear on top of a tile layer, it must come after the tile
+ * layer.
  * @type {Array.<ol.layer.Base>|ol.Collection.<ol.layer.Base>|undefined}
  * @api stable
  */
@@ -328,7 +332,7 @@ olx.OverlayOptions.prototype.element;
 
 
 /**
- * Offsets in pixels used when positioning the overlay. The fist element in the
+ * Offsets in pixels used when positioning the overlay. The first element in the
  * array is the horizontal offset. A positive value shifts the overlay right.
  * The second element in the array is the vertical offset. A positive value
  * shifts the overlay down. Default is `[0, 0]`.
@@ -1907,6 +1911,7 @@ olx.format.WFSOptions.prototype.schemaLocation;
  *     outputFormat: (string|undefined),
  *     maxFeatures: (number|undefined),
  *     geometryName: (string|undefined),
+ *     propertyNames: (Array.<string>|undefined),
  *     bbox: (ol.Extent|undefined)}}
  * @api
  */
@@ -1976,6 +1981,14 @@ olx.format.WFSWriteGetFeatureOptions.prototype.maxFeatures;
  * @api
  */
 olx.format.WFSWriteGetFeatureOptions.prototype.geometryName;
+
+
+/**
+ * Optional list of property names to serialize.
+ * @type {Array.<string>|undefined}
+ * @api
+ */
+olx.format.WFSWriteGetFeatureOptions.prototype.propertyNames;
 
 
 /**
@@ -2353,18 +2366,34 @@ olx.interaction.DragZoomOptions.prototype.style;
 
 
 /**
- * @typedef {{features: (ol.Collection.<ol.Feature>|undefined),
+ * @typedef {{clickTolerance: (number|undefined),
+ *     features: (ol.Collection.<ol.Feature>|undefined),
  *     source: (ol.source.Vector|undefined),
  *     snapTolerance: (number|undefined),
  *     type: ol.geom.GeometryType,
- *     minPointsPerRing: (number|undefined),
+ *     maxPoints: (number|undefined),
+ *     minPoints: (number|undefined),
  *     style: (ol.style.Style|Array.<ol.style.Style>|ol.style.StyleFunction|undefined),
+ *     geometryFunction: (ol.interaction.DrawGeometryFunctionType|undefined),
  *     geometryName: (string|undefined),
  *     condition: (ol.events.ConditionType|undefined),
- *     freehandCondition: (ol.events.ConditionType|undefined)}}
+ *     freehandCondition: (ol.events.ConditionType|undefined),
+ *     wrapX: (boolean|undefined)}}
  * @api
  */
 olx.interaction.DrawOptions;
+
+
+/**
+ * The maximum distance in pixels between "down" and "up" for a "up" event
+ * to be considered a "click" event and actually add a point/vertex to the
+ * geometry being drawn.  Default is 6 pixels.  That value was chosen for
+ * the draw interaction to behave correctly on mouse as well as on touch
+ * devices.
+ * @type {number|undefined}
+ * @api
+ */
+olx.interaction.DrawOptions.prototype.clickTolerance;
 
 
 /**
@@ -2393,7 +2422,7 @@ olx.interaction.DrawOptions.prototype.snapTolerance;
 
 /**
  * Drawing type ('Point', 'LineString', 'Polygon', 'MultiPoint',
- * 'MultiLineString', or 'MultiPolygon').
+ * 'MultiLineString', 'MultiPolygon' or 'Circle').
  * @type {ol.geom.GeometryType}
  * @api
  */
@@ -2401,12 +2430,21 @@ olx.interaction.DrawOptions.prototype.type;
 
 
 /**
- * The number of points that must be drawn before a polygon ring can be finished.
- * Default is `3`.
+ * The number of points that can be drawn before a polygon ring or line string
+ * is finished. The default is no restriction.
  * @type {number|undefined}
  * @api
  */
-olx.interaction.DrawOptions.prototype.minPointsPerRing;
+olx.interaction.DrawOptions.prototype.maxPoints;
+
+
+/**
+ * The number of points that must be drawn before a polygon ring or line string
+ * can be finished. Default is `3` for polygon rings and `2` for line strings.
+ * @type {number|undefined}
+ * @api
+ */
+olx.interaction.DrawOptions.prototype.minPoints;
 
 
 /**
@@ -2415,6 +2453,14 @@ olx.interaction.DrawOptions.prototype.minPointsPerRing;
  * @api
  */
 olx.interaction.DrawOptions.prototype.style;
+
+
+/**
+ * Function that is called when a geometry's coordinates are updated.
+ * @type {ol.interaction.DrawGeometryFunctionType|undefined}
+ * @api
+ */
+olx.interaction.DrawOptions.prototype.geometryFunction;
 
 
 /**
@@ -2446,6 +2492,14 @@ olx.interaction.DrawOptions.prototype.condition;
  * @api
  */
 olx.interaction.DrawOptions.prototype.freehandCondition;
+
+
+/**
+ * Wrap the world horizontally on the sketch overlay. Default is `false`.
+ * @type {boolean|undefined}
+ * @api
+ */
+olx.interaction.DrawOptions.prototype.wrapX;
 
 
 /**
@@ -2523,7 +2577,8 @@ olx.interaction.KeyboardZoomOptions.prototype.delta;
  * @typedef {{deleteCondition: (ol.events.ConditionType|undefined),
  *     pixelTolerance: (number|undefined),
  *     style: (ol.style.Style|Array.<ol.style.Style>|ol.style.StyleFunction|undefined),
- *     features: ol.Collection.<ol.Feature>}}
+ *     features: ol.Collection.<ol.Feature>,
+ *     wrapX: (boolean|undefined)}}
  * @api
  */
 olx.interaction.ModifyOptions;
@@ -2542,7 +2597,7 @@ olx.interaction.ModifyOptions.prototype.deleteCondition;
 
 /**
  * Pixel tolerance for considering the pointer close enough to a segment or
- * vertex for editing.
+ * vertex for editing. Default is `10`.
  * @type {number|undefined}
  * @api
  */
@@ -2550,7 +2605,8 @@ olx.interaction.ModifyOptions.prototype.pixelTolerance;
 
 
 /**
- * FeatureOverlay style.
+ * Style used for the features being modified. By default the default edit
+ * style is used (see {@link ol.style}).
  * @type {ol.style.Style|Array.<ol.style.Style>|ol.style.StyleFunction|undefined}
  * @api
  */
@@ -2563,6 +2619,14 @@ olx.interaction.ModifyOptions.prototype.style;
  * @api
  */
 olx.interaction.ModifyOptions.prototype.features;
+
+
+/**
+ * Wrap the world horizontally on the sketch overlay. Default is `false`.
+ * @type {boolean|undefined}
+ * @api
+ */
+olx.interaction.ModifyOptions.prototype.wrapX;
 
 
 /**
@@ -2686,7 +2750,8 @@ olx.interaction.PointerOptions.prototype.handleUpEvent;
  *     removeCondition: (ol.events.ConditionType|undefined),
  *     toggleCondition: (ol.events.ConditionType|undefined),
  *     multi: (boolean|undefined),
- *     filter: (ol.interaction.SelectFilterFunction|undefined)}}
+ *     filter: (ol.interaction.SelectFilterFunction|undefined),
+ *     wrapX: (boolean|undefined)}}
  * @api
  */
 olx.interaction.SelectOptions;
@@ -2731,7 +2796,8 @@ olx.interaction.SelectOptions.prototype.layers;
 
 
 /**
- * Style for the selected features (those in the FeatureOverlay).
+ * Style for the selected features. By default the default edit style is used
+ * (see {@link ol.style}).
  * @type {ol.style.Style|Array.<ol.style.Style>|ol.style.StyleFunction|undefined}
  * @api
  */
@@ -2779,6 +2845,14 @@ olx.interaction.SelectOptions.prototype.multi;
  * @api
  */
 olx.interaction.SelectOptions.prototype.filter;
+
+
+/**
+ * Wrap the world horizontally on the selection overlay. Default is `true`.
+ * @type {boolean|undefined}
+ * @api
+ */
+olx.interaction.SelectOptions.prototype.wrapX;
 
 
 /**
@@ -3260,6 +3334,7 @@ olx.layer.HeatmapOptions.prototype.visible;
  *     hue: (number|undefined),
  *     opacity: (number|undefined),
  *     saturation: (number|undefined),
+ *     map: (ol.Map|undefined),
  *     source: (ol.source.Image|undefined),
  *     visible: (boolean|undefined),
  *     extent: (ol.Extent|undefined),
@@ -3319,6 +3394,17 @@ olx.layer.ImageOptions.prototype.source;
 
 
 /**
+ * Sets the layer as overlay on a map. The map will not manage this layer in its
+ * layers collection, and the layer will be rendered on top. This is useful for
+ * temporary layers. The standard way to add a layer to a map and have it
+ * managed by the map is to use {@link ol.Map#addLayer}.
+ * @type {ol.Map|undefined}
+ * @api
+ */
+olx.layer.ImageOptions.prototype.map;
+
+
+/**
  * Visibility. Default is `true` (visible).
  * @type {boolean|undefined}
  * @api stable
@@ -3359,6 +3445,7 @@ olx.layer.ImageOptions.prototype.maxResolution;
  *     preload: (number|undefined),
  *     saturation: (number|undefined),
  *     source: (ol.source.Tile|undefined),
+ *     map: (ol.Map|undefined),
  *     visible: (boolean|undefined),
  *     extent: (ol.Extent|undefined),
  *     minResolution: (number|undefined),
@@ -3427,6 +3514,17 @@ olx.layer.TileOptions.prototype.source;
 
 
 /**
+ * Sets the layer as overlay on a map. The map will not manage this layer in its
+ * layers collection, and the layer will be rendered on top. This is useful for
+ * temporary layers. The standard way to add a layer to a map and have it
+ * managed by the map is to use {@link ol.Map#addLayer}.
+ * @type {ol.Map|undefined}
+ * @api
+ */
+olx.layer.TileOptions.prototype.map;
+
+
+/**
  * Visibility. Default is `true` (visible).
  * @type {boolean|undefined}
  * @api stable
@@ -3478,6 +3576,7 @@ olx.layer.TileOptions.prototype.useInterimTilesOnError;
  *     renderBuffer: (number|undefined),
  *     saturation: (number|undefined),
  *     source: (ol.source.Vector|undefined),
+ *     map: (ol.Map|undefined),
  *     style: (ol.style.Style|Array.<ol.style.Style>|ol.style.StyleFunction|undefined),
  *     updateWhileAnimating: (boolean|undefined),
  *     updateWhileInteracting: (boolean|undefined),
@@ -3522,6 +3621,17 @@ olx.layer.VectorOptions.prototype.hue;
 
 
 /**
+ * Sets the layer as overlay on a map. The map will not manage this layer in its
+ * layers collection, and the layer will be rendered on top. This is useful for
+ * temporary layers. The standard way to add a layer to a map and have it
+ * managed by the map is to use {@link ol.Map#addLayer}.
+ * @type {ol.Map|undefined}
+ * @api
+ */
+olx.layer.VectorOptions.prototype.map;
+
+
+/**
  * The bounding extent for layer rendering.  The layer will not be rendered
  * outside of this extent.
  * @type {ol.Extent|undefined}
@@ -3556,8 +3666,9 @@ olx.layer.VectorOptions.prototype.opacity;
 
 /**
  * The buffer around the viewport extent used by the renderer when getting
- * features from the vector source. Recommended value: the size of the
- * largest symbol or line width. Default is 100 pixels.
+ * features from the vector source for the rendering or hit-detection.
+ * Recommended value: the size of the largest symbol, line width or label.
+ * Default is 100 pixels.
  * @type {number|undefined}
  * @api
  */
@@ -3602,7 +3713,7 @@ olx.layer.VectorOptions.prototype.updateWhileAnimating;
 
 /**
  * When set to `true`, feature batches will be recreated during interactions.
- * See also `updateWhileInteracting`. Default is `false`.
+ * See also `updateWhileAnimating`. Default is `false`.
  * @type {boolean|undefined}
  * @api
  */
@@ -3615,39 +3726,6 @@ olx.layer.VectorOptions.prototype.updateWhileInteracting;
  * @api stable
  */
 olx.layer.VectorOptions.prototype.visible;
-
-
-/**
- * @typedef {{features: (Array.<ol.Feature>|ol.Collection.<ol.Feature>|undefined),
- *     map: (ol.Map|undefined),
- *     style: (ol.style.Style|Array.<ol.style.Style>|ol.style.StyleFunction|undefined)}}
- * @api
- */
-olx.FeatureOverlayOptions;
-
-
-/**
- * Features.
- * @type {Array.<ol.Feature>|ol.Collection.<ol.Feature>|undefined}
- * @api
- */
-olx.FeatureOverlayOptions.prototype.features;
-
-
-/**
- * Map.
- * @type {ol.Map|undefined}
- * @api
- */
-olx.FeatureOverlayOptions.prototype.map;
-
-
-/**
- * Feature style.
- * @type {ol.style.Style|Array.<ol.style.Style>|ol.style.StyleFunction|undefined}
- * @api
- */
-olx.FeatureOverlayOptions.prototype.style;
 
 
 /**
@@ -3945,12 +4023,14 @@ olx.source.TileImageOptions.prototype.wrapX;
 
 /**
  * @typedef {{attributions: (Array.<ol.Attribution>|undefined),
- *     format: ol.format.Feature,
+ *     format: (ol.format.Feature|undefined),
  *     logo: (string|olx.LogoOptions|undefined),
  *     tileGrid: ol.tilegrid.TileGrid,
  *     tileUrlFunction: (ol.TileUrlFunctionType|undefined),
+ *     tileLoadFunction: (ol.TileVectorLoadFunctionType|undefined),
  *     url: (string|undefined),
- *     urls: (Array.<string>|undefined)}}
+ *     urls: (Array.<string>|undefined),
+ *     wrapX: (boolean|undefined)}}
  * @api
  */
 olx.source.TileVectorOptions;
@@ -3965,8 +4045,8 @@ olx.source.TileVectorOptions.prototype.attributions;
 
 
 /**
- * Format.
- * @type {ol.format.Feature}
+ * Format. Required unless tileLoadFunction is used.
+ * @type {ol.format.Feature|undefined}
  * @api
  */
 olx.source.TileVectorOptions.prototype.format;
@@ -3998,6 +4078,16 @@ olx.source.TileVectorOptions.prototype.tileUrlFunction;
 
 
 /**
+ * Optional function to override the default loading and format parsing behaviour.
+ * If this option is used format is ignored and the provided function will be
+ * responsible for data retrieval and transformation into features.
+ * @type {ol.TileVectorLoadFunctionType|undefined}
+ * @api
+ */
+olx.source.TileVectorOptions.prototype.tileLoadFunction;
+
+
+/**
  * URL template. Must include `{x}`, `{y}` or `{-y}`, and `{z}` placeholders.
  * @type {string|undefined}
  * @api
@@ -4011,6 +4101,16 @@ olx.source.TileVectorOptions.prototype.url;
  * @api
  */
 olx.source.TileVectorOptions.prototype.urls;
+
+
+/**
+ * Wrap the world horizontally. Default is `true`. For vector editing across the
+ * -180° and 180° meridians to work properly, this should be set to `false`. The
+ * resulting geometry coordinates will then exceed the world bounds.
+ * @type {boolean|undefined}
+ * @api
+ */
+olx.source.TileVectorOptions.prototype.wrapX;
 
 
 /**
@@ -4147,7 +4247,8 @@ olx.source.MapQuestOptions.prototype.url;
 
 /**
  * @typedef {{projection: ol.proj.ProjectionLike,
- *     tileGrid: (ol.tilegrid.TileGrid|undefined)}}
+ *     tileGrid: (ol.tilegrid.TileGrid|undefined),
+ *     wrapX: (boolean|undefined)}}
  * @api
  */
 olx.source.TileDebugOptions;
@@ -4167,6 +4268,14 @@ olx.source.TileDebugOptions.prototype.projection;
  * @api
  */
 olx.source.TileDebugOptions.prototype.tileGrid;
+
+
+/**
+ * Whether to wrap the world horizontally. Default is `true`.
+ * @type {boolean|undefined}
+ * @api
+ */
+olx.source.TileDebugOptions.prototype.wrapX;
 
 
 /**
@@ -4942,11 +5051,10 @@ olx.source.TileWMSOptions.prototype.urls;
 
 
 /**
- * Whether to wrap the world horizontally. The default, `undefined`, is to
- * request out-of-bounds tiles from the server. This works well in e.g.
- * GeoServer. When set to `false`, only one world will be rendered. When set to
- * `true`, tiles will be requested for one world only, but they will be wrapped
- * horizontally to render multiple worlds.
+ * Whether to wrap the world horizontally. When set to `false`, only one world
+ * will be rendered. When `true`, tiles will be requested for one world only,
+ * but they will be wrapped horizontally to render multiple worlds. The default
+ * is `true`.
  * @type {boolean|undefined}
  * @api
  */
@@ -4955,12 +5063,13 @@ olx.source.TileWMSOptions.prototype.wrapX;
 
 /**
  * @typedef {{attributions: (Array.<ol.Attribution>|undefined),
- *     features: (Array.<ol.Feature>|undefined),
+ *     features: (Array.<ol.Feature>|ol.Collection.<ol.Feature>|undefined),
  *     format: (ol.format.Feature|undefined),
  *     loader: (ol.FeatureLoader|undefined),
  *     logo: (string|olx.LogoOptions|undefined),
  *     strategy: (ol.LoadingStrategy|undefined),
  *     url: (string|undefined),
+ *     useSpatialIndex: (boolean|undefined),
  *     wrapX: (boolean|undefined)}}
  * @api
  */
@@ -4976,8 +5085,9 @@ olx.source.VectorOptions.prototype.attributions;
 
 
 /**
- * Features.
- * @type {Array.<ol.Feature>|undefined}
+ * Features. If provided as {@link ol.Collection}, the features in the source
+ * and the collection will stay in sync.
+ * @type {Array.<ol.Feature>|ol.Collection.<ol.Feature>|undefined}
  * @api stable
  */
 olx.source.VectorOptions.prototype.features;
@@ -5028,6 +5138,29 @@ olx.source.VectorOptions.prototype.strategy;
  * @api
  */
 olx.source.VectorOptions.prototype.url;
+
+
+/**
+ * By default, an RTree is used as spatial index. When features are removed and
+ * added frequently, and the total number of features is low, setting this to
+ * `false` may improve performance.
+ *
+ * Note that
+ * {@link ol.source.Vector#getFeaturesInExtent},
+ * {@link ol.source.Vector#getClosestFeatureToCoordinate} and
+ * {@link ol.source.Vector#getExtent} cannot be used when `useSpatialIndex` is
+ * set to `false`, and {@link ol.source.Vector#forEachFeatureInExtent} will loop
+ * through all features.
+ *
+ * When set to `false`, the features will be maintained in an
+ * {@link ol.Collection}, which can be retrieved through
+ * {@link ol.source.Vector#getFeaturesCollection}.
+ *
+ * The default is `true`.
+ * @type {boolean|undefined}
+ * @api
+ */
+olx.source.VectorOptions.prototype.useSpatialIndex;
 
 
 /**
@@ -5237,6 +5370,7 @@ olx.source.WMTSOptions.prototype.wrapX;
  *     projection: ol.proj.ProjectionLike,
  *     maxZoom: (number|undefined),
  *     minZoom: (number|undefined),
+ *     tileGrid: (ol.tilegrid.TileGrid|undefined),
  *     tileLoadFunction: (ol.TileLoadFunctionType|undefined),
  *     tilePixelRatio: (number|undefined),
  *     tileSize: (number|ol.Size|undefined),
@@ -5299,6 +5433,14 @@ olx.source.XYZOptions.prototype.maxZoom;
  * @api
  */
 olx.source.XYZOptions.prototype.minZoom;
+
+
+/**
+ * Tile grid.
+ * @type {ol.tilegrid.TileGrid}
+ * @api
+ */
+olx.source.XYZOptions.prototype.tileGrid;
 
 
 /**
@@ -6014,16 +6156,27 @@ olx.tilegrid;
 
 
 /**
- * @typedef {{minZoom: (number|undefined),
+ * @typedef {{extent: (ol.Extent|undefined),
+ *     minZoom: (number|undefined),
  *     origin: (ol.Coordinate|undefined),
  *     origins: (Array.<ol.Coordinate>|undefined),
  *     resolutions: !Array.<number>,
+ *     sizes: (Array.<ol.Size>|undefined),
  *     tileSize: (number|ol.Size|undefined),
- *     tileSizes: (Array.<number|ol.Size>|undefined),
- *     widths: (Array.<number>|undefined)}}
+ *     tileSizes: (Array.<number|ol.Size>|undefined)}}
  * @api
  */
 olx.tilegrid.TileGridOptions;
+
+
+/**
+ * Extent for the tile grid. No tiles outside this extent will be requested by
+ * {@link ol.source.Tile} sources. When no `origin` or `origins` are
+ * configured, the `origin` will be set to the top-left corner of the extent.
+ * @type {ol.Extent|undefined}
+ * @api
+ */
+olx.tilegrid.TileGridOptions.prototype.extent;
 
 
 /**
@@ -6035,7 +6188,9 @@ olx.tilegrid.TileGridOptions.prototype.minZoom;
 
 
 /**
- * Origin. Default is null.
+ * The tile grid origin, i.e. where the `x` and `y` axes meet (`[z, 0, 0]`).
+ * Tile coordinates increase left to right and upwards. If not specified,
+ * `extent` or `origins` must be provided.
  * @type {ol.Coordinate|undefined}
  * @api stable
  */
@@ -6043,8 +6198,11 @@ olx.tilegrid.TileGridOptions.prototype.origin;
 
 
 /**
- * Origins. If given, the array length should match the length of the
- * `resolutions` array, i.e. each resolution can have a different origin.
+ * Tile grid origins, i.e. where the `x` and `y` axes meet (`[z, 0, 0]`), for
+ * each zoom level. If given, the array length should match the length of the
+ * `resolutions` array, i.e. each resolution can have a different origin. Tile
+ * coordinates increase left to right and upwards. If not specified, `extent`
+ * or `origin` must be provided.
  * @type {Array.<ol.Coordinate>|undefined}
  * @api stable
  */
@@ -6079,43 +6237,47 @@ olx.tilegrid.TileGridOptions.prototype.tileSizes;
 
 
 /**
- * Number of tile columns that cover the grid's extent for each zoom level. Only
- * required when used with a source that has `wrapX` set to `true`, and only
- * when the grid's origin differs from the one of the projection's extent. The
- * array length has to match the length of the `resolutions` array, i.e. each
- * resolution will have a matching entry here.
- * @type {Array.<number>|undefined}
- * @api
- */
-olx.tilegrid.TileGridOptions.prototype.widths;
-
-
-/**
- * @typedef {{origin: (ol.Coordinate|undefined),
+ * @typedef {{extent: (ol.Extent|undefined),
+ *     origin: (ol.Coordinate|undefined),
  *     origins: (Array.<ol.Coordinate>|undefined),
  *     resolutions: !Array.<number>,
  *     matrixIds: !Array.<string>,
+ *     sizes: (Array.<ol.Size>|undefined),
  *     tileSize: (number|ol.Size|undefined),
- *     tileSizes: (Array.<number|ol.Size>|undefined),
- *     widths: (Array.<number>|undefined)}}
+ *     tileSizes: (Array.<number|ol.Size>|undefined)}}
  * @api
  */
 olx.tilegrid.WMTSOptions;
 
 
 /**
- * Origin.
- * @type {ol.Coordinate|undefined}
+ * Extent for the tile grid. No tiles outside this extent will be requested by
+ * {@link ol.source.Tile} sources. When no `origin` or `origins` are
+ * configured, the `origin` will be set to the top-left corner of the extent.
+ * @type {ol.Extent|undefined}
  * @api
+ */
+olx.tilegrid.WMTSOptions.prototype.extent;
+
+
+/**
+ * The tile grid origin, i.e. where the `x` and `y` axes meet (`[z, 0, 0]`).
+ * Tile coordinates increase left to right and upwards. If not specified,
+ * `extent` or `origins` must be provided.
+ * @type {ol.Coordinate|undefined}
+ * @api stable
  */
 olx.tilegrid.WMTSOptions.prototype.origin;
 
 
 /**
- * Origins. The length of this array needs to match the length of the
- * `resolutions` array.
+ * Tile grid origins, i.e. where the `x` and `y` axes meet (`[z, 0, 0]`), for
+ * each zoom level. If given, the array length should match the length of the
+ * `resolutions` array, i.e. each resolution can have a different origin. Tile
+ * coordinates increase left to right and upwards. If not specified, `extent` or
+ * `origin` must be provided.
  * @type {Array.<ol.Coordinate>|undefined}
- * @api
+ * @api stable
  */
 olx.tilegrid.WMTSOptions.prototype.origins;
 
@@ -6137,6 +6299,21 @@ olx.tilegrid.WMTSOptions.prototype.resolutions;
  * @api
  */
 olx.tilegrid.WMTSOptions.prototype.matrixIds;
+
+
+/**
+ * Number of tile rows and columns of the grid for each zoom level. The values
+ * here are the `TileMatrixWidth` and `TileMatrixHeight` advertised in the
+ * GetCapabilities response of the WMTS, and define the grid's extent together
+ * with the `origin`. An `extent` can be configured in addition, and will
+ * further limit the extent for which tile requests are made by sources. Note
+ * that when the top-left corner of the `extent` is used as `origin` or
+ * `origins`, then the `y` value must be negative because OpenLayers tile
+ * coordinates increase upwards.
+ * @type {Array.<ol.Size>|undefined}
+ * @api
+ */
+olx.tilegrid.WMTSOptions.prototype.sizes;
 
 
 /**
@@ -6216,21 +6393,6 @@ olx.tilegrid.XYZOptions.prototype.tileSize;
 
 
 /**
- * @typedef {{resolutions: !Array.<number>}}
- * @api
- */
-olx.tilegrid.ZoomifyOptions;
-
-
-/**
- * Resolutions.
- * @type {!Array.<number>}
- * @api
- */
-olx.tilegrid.ZoomifyOptions.prototype.resolutions;
-
-
-/**
  * Namespace.
  * @type {Object}
  */
@@ -6245,7 +6407,7 @@ olx.view;
  *     minResolution: (number|undefined)}}
  * @api
  */
-olx.view.FitGeometryOptions;
+olx.view.FitOptions;
 
 
 /**
@@ -6254,7 +6416,7 @@ olx.view.FitGeometryOptions;
  * @type {!Array.<number>}
  * @api
  */
-olx.view.FitGeometryOptions.prototype.padding;
+olx.view.FitOptions.prototype.padding;
 
 
 /**
@@ -6262,7 +6424,7 @@ olx.view.FitGeometryOptions.prototype.padding;
  * @type {boolean|undefined}
  * @api
  */
-olx.view.FitGeometryOptions.prototype.constrainResolution;
+olx.view.FitOptions.prototype.constrainResolution;
 
 
 /**
@@ -6270,7 +6432,7 @@ olx.view.FitGeometryOptions.prototype.constrainResolution;
  * @type {boolean|undefined}
  * @api
  */
-olx.view.FitGeometryOptions.prototype.nearest;
+olx.view.FitOptions.prototype.nearest;
 
 
 /**
@@ -6278,7 +6440,7 @@ olx.view.FitGeometryOptions.prototype.nearest;
  * @type {number|undefined}
  * @api
  */
-olx.view.FitGeometryOptions.prototype.minResolution;
+olx.view.FitOptions.prototype.minResolution;
 
 
 /**
@@ -6287,7 +6449,7 @@ olx.view.FitGeometryOptions.prototype.minResolution;
  * @type {number|undefined}
  * @api
  */
-olx.view.FitGeometryOptions.prototype.maxZoom;
+olx.view.FitOptions.prototype.maxZoom;
 
 
 /* typedefs for object literals exposed by the library */
