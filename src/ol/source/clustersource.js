@@ -119,10 +119,9 @@ ol.source.Cluster.prototype.cluster_ = function() {
     var feature = features[i];
     if (!(goog.getUid(feature).toString() in clustered)) {
       var geometry = feature.getGeometry();
-      goog.asserts.assert(geometry instanceof ol.geom.Point,
-          'feature geometry is a ol.geom.Point instance');
-      var coordinates = geometry.getCoordinates();
-      ol.extent.createOrUpdateFromCoordinate(coordinates, extent);
+      goog.asserts.assert(!!geometry, 'feature geometry should not be null');
+      var center = ol.extent.getCenter(geometry.getExtent());
+      ol.extent.createOrUpdateFromCoordinate(center, extent);
       ol.extent.buffer(extent, mapDistance, extent);
 
       var neighbors = this.source_.getFeaturesInExtent(extent);
@@ -155,10 +154,9 @@ ol.source.Cluster.prototype.createCluster_ = function(features) {
   var centroid = [0, 0];
   for (var i = 0; i < length; i++) {
     var geometry = features[i].getGeometry();
-    goog.asserts.assert(geometry instanceof ol.geom.Point,
-        'feature geometry is a ol.geom.Point instance');
-    var coordinates = geometry.getCoordinates();
-    ol.coordinate.add(centroid, coordinates);
+    goog.asserts.assert(!!geometry, 'feature geometry should not be null');
+    var center = ol.extent.getCenter(geometry.getExtent());
+    ol.coordinate.add(centroid, center);
   }
   ol.coordinate.scale(centroid, 1 / length);
 
