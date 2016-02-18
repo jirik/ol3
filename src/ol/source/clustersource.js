@@ -114,12 +114,20 @@ ol.source.Cluster.prototype.cluster_ = function() {
    * @type {Object.<string, boolean>}
    */
   var clustered = {};
+  
+  /**
+   * @type {Array<ol.Feature>}
+   */
+  var noGeometry = [];
 
   for (var i = 0, ii = features.length; i < ii; i++) {
     var feature = features[i];
     if (!(goog.getUid(feature).toString() in clustered)) {
       var geometry = feature.getGeometry();
-      goog.asserts.assert(!!geometry, 'feature geometry should not be null');
+      if(!geometry) {
+        noGeometry.push(feature);
+        continue;
+      }
       var center = ol.extent.getCenter(geometry.getExtent());
       ol.extent.createOrUpdateFromCoordinate(center, extent);
       ol.extent.buffer(extent, mapDistance, extent);
@@ -139,7 +147,8 @@ ol.source.Cluster.prototype.cluster_ = function() {
     }
   }
   goog.asserts.assert(
-      goog.object.getCount(clustered) == this.source_.getFeatures().length,
+      goog.object.getCount(clustered) + noGeometry.length ==
+          this.source_.getFeatures().length,
       'number of clustered equals number of features in the source');
 };
 
