@@ -2066,6 +2066,14 @@ ol.geom.Geometry.prototype.containsCoordinate = function(coordinate) {};
 
 
 /**
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+ol.geom.Geometry.prototype.containsXY;
+
+
+/**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
@@ -7530,6 +7538,14 @@ ol.geom.SimpleGeometry.prototype.containsCoordinate = function(coordinate) {};
 
 
 /**
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+ol.geom.SimpleGeometry.prototype.containsXY;
+
+
+/**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
@@ -7639,6 +7655,14 @@ ol.geom.SimpleGeometry.prototype.un = function(type, listener, opt_this) {};
  * @param {ol.events.Key|Array.<ol.events.Key>} key
  */
 ol.geom.SimpleGeometry.prototype.unByKey = function(key) {};
+
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+ol.geom.Circle.prototype.containsXY;
 
 
 /**
@@ -7794,6 +7818,14 @@ ol.geom.GeometryCollection.prototype.containsCoordinate = function(coordinate) {
 
 
 /**
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+ol.geom.GeometryCollection.prototype.containsXY;
+
+
+/**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
@@ -7903,6 +7935,14 @@ ol.geom.GeometryCollection.prototype.un = function(type, listener, opt_this) {};
  * @param {ol.events.Key|Array.<ol.events.Key>} key
  */
 ol.geom.GeometryCollection.prototype.unByKey = function(key) {};
+
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+ol.geom.LinearRing.prototype.containsXY;
 
 
 /**
@@ -8051,6 +8091,14 @@ ol.geom.LinearRing.prototype.unByKey = function(key) {};
 
 
 /**
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+ol.geom.LineString.prototype.containsXY;
+
+
+/**
  * @return {ol.Coordinate}
  */
 ol.geom.LineString.prototype.getFirstCoordinate = function() {};
@@ -8193,6 +8241,14 @@ ol.geom.LineString.prototype.un = function(type, listener, opt_this) {};
  * @param {ol.events.Key|Array.<ol.events.Key>} key
  */
 ol.geom.LineString.prototype.unByKey = function(key) {};
+
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+ol.geom.MultiLineString.prototype.containsXY;
 
 
 /**
@@ -8341,6 +8397,14 @@ ol.geom.MultiLineString.prototype.unByKey = function(key) {};
 
 
 /**
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+ol.geom.MultiPoint.prototype.containsXY;
+
+
+/**
  * @return {ol.Coordinate}
  */
 ol.geom.MultiPoint.prototype.getFirstCoordinate = function() {};
@@ -8483,6 +8547,14 @@ ol.geom.MultiPoint.prototype.un = function(type, listener, opt_this) {};
  * @param {ol.events.Key|Array.<ol.events.Key>} key
  */
 ol.geom.MultiPoint.prototype.unByKey = function(key) {};
+
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+ol.geom.MultiPolygon.prototype.containsXY;
 
 
 /**
@@ -8631,6 +8703,14 @@ ol.geom.MultiPolygon.prototype.unByKey = function(key) {};
 
 
 /**
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+ol.geom.Point.prototype.containsXY;
+
+
+/**
  * @return {ol.Coordinate}
  */
 ol.geom.Point.prototype.getFirstCoordinate = function() {};
@@ -8773,6 +8853,14 @@ ol.geom.Point.prototype.un = function(type, listener, opt_this) {};
  * @param {ol.events.Key|Array.<ol.events.Key>} key
  */
 ol.geom.Point.prototype.unByKey = function(key) {};
+
+
+/**
+ * @param {number} x
+ * @param {number} y
+ * @return {boolean}
+ */
+ol.geom.Polygon.prototype.containsXY;
 
 
 /**

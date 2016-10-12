@@ -1,6 +1,6 @@
 // OpenLayers 3. See http://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/ol3/master/LICENSE.md
-// Version: v3.14.2-12-gfc612ad
+// Version: v3.14.2-13-gc216a25
 
 (function (root, factory) {
   if (typeof exports === "object") {
@@ -15186,6 +15186,7 @@ ol.geom.Geometry.prototype.computeExtent = goog.abstractMethod;
  * @param {number} x X.
  * @param {number} y Y.
  * @return {boolean} Contains (x, y).
+ * @api
  */
 ol.geom.Geometry.prototype.containsXY = goog.functions.FALSE;
 
@@ -109835,6 +109836,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.Geometry.prototype,
+    'containsXY',
+    ol.geom.Geometry.prototype.containsXY);
+
+goog.exportProperty(
+    ol.geom.Geometry.prototype,
     'getExtent',
     ol.geom.Geometry.prototype.getExtent);
 
@@ -113790,6 +113796,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.SimpleGeometry.prototype,
+    'containsXY',
+    ol.geom.SimpleGeometry.prototype.containsXY);
+
+goog.exportProperty(
+    ol.geom.SimpleGeometry.prototype,
     'getExtent',
     ol.geom.SimpleGeometry.prototype.getExtent);
 
@@ -113867,6 +113878,11 @@ goog.exportProperty(
     ol.geom.SimpleGeometry.prototype,
     'unByKey',
     ol.geom.SimpleGeometry.prototype.unByKey);
+
+goog.exportProperty(
+    ol.geom.Circle.prototype,
+    'containsXY',
+    ol.geom.Circle.prototype.containsXY);
 
 goog.exportProperty(
     ol.geom.Circle.prototype,
@@ -113980,6 +113996,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.GeometryCollection.prototype,
+    'containsXY',
+    ol.geom.GeometryCollection.prototype.containsXY);
+
+goog.exportProperty(
+    ol.geom.GeometryCollection.prototype,
     'getExtent',
     ol.geom.GeometryCollection.prototype.getExtent);
 
@@ -114057,6 +114078,11 @@ goog.exportProperty(
     ol.geom.GeometryCollection.prototype,
     'unByKey',
     ol.geom.GeometryCollection.prototype.unByKey);
+
+goog.exportProperty(
+    ol.geom.LinearRing.prototype,
+    'containsXY',
+    ol.geom.LinearRing.prototype.containsXY);
 
 goog.exportProperty(
     ol.geom.LinearRing.prototype,
@@ -114165,6 +114191,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.LineString.prototype,
+    'containsXY',
+    ol.geom.LineString.prototype.containsXY);
+
+goog.exportProperty(
+    ol.geom.LineString.prototype,
     'getFirstCoordinate',
     ol.geom.LineString.prototype.getFirstCoordinate);
 
@@ -114267,6 +114298,11 @@ goog.exportProperty(
     ol.geom.LineString.prototype,
     'unByKey',
     ol.geom.LineString.prototype.unByKey);
+
+goog.exportProperty(
+    ol.geom.MultiLineString.prototype,
+    'containsXY',
+    ol.geom.MultiLineString.prototype.containsXY);
 
 goog.exportProperty(
     ol.geom.MultiLineString.prototype,
@@ -114375,6 +114411,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.MultiPoint.prototype,
+    'containsXY',
+    ol.geom.MultiPoint.prototype.containsXY);
+
+goog.exportProperty(
+    ol.geom.MultiPoint.prototype,
     'getFirstCoordinate',
     ol.geom.MultiPoint.prototype.getFirstCoordinate);
 
@@ -114477,6 +114518,11 @@ goog.exportProperty(
     ol.geom.MultiPoint.prototype,
     'unByKey',
     ol.geom.MultiPoint.prototype.unByKey);
+
+goog.exportProperty(
+    ol.geom.MultiPolygon.prototype,
+    'containsXY',
+    ol.geom.MultiPolygon.prototype.containsXY);
 
 goog.exportProperty(
     ol.geom.MultiPolygon.prototype,
@@ -114585,6 +114631,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.Point.prototype,
+    'containsXY',
+    ol.geom.Point.prototype.containsXY);
+
+goog.exportProperty(
+    ol.geom.Point.prototype,
     'getFirstCoordinate',
     ol.geom.Point.prototype.getFirstCoordinate);
 
@@ -114687,6 +114738,11 @@ goog.exportProperty(
     ol.geom.Point.prototype,
     'unByKey',
     ol.geom.Point.prototype.unByKey);
+
+goog.exportProperty(
+    ol.geom.Polygon.prototype,
+    'containsXY',
+    ol.geom.Polygon.prototype.containsXY);
 
 goog.exportProperty(
     ol.geom.Polygon.prototype,
