@@ -2059,6 +2059,13 @@ ol.geom.Geometry.prototype.getClosestPoint = function(point, opt_closestPoint) {
 
 
 /**
+ * @param {ol.Coordinate} coordinate
+ * @return {boolean}
+ */
+ol.geom.Geometry.prototype.containsCoordinate = function(coordinate) {};
+
+
+/**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
@@ -7516,6 +7523,13 @@ ol.geom.SimpleGeometry.prototype.getClosestPoint = function(point, opt_closestPo
 
 
 /**
+ * @param {ol.Coordinate} coordinate
+ * @return {boolean}
+ */
+ol.geom.SimpleGeometry.prototype.containsCoordinate = function(coordinate) {};
+
+
+/**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
@@ -7654,6 +7668,13 @@ ol.geom.Circle.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
+ * @param {ol.Coordinate} coordinate
+ * @return {boolean}
+ */
+ol.geom.Circle.prototype.containsCoordinate = function(coordinate) {};
+
+
+/**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
@@ -7763,6 +7784,13 @@ ol.geom.Circle.prototype.unByKey = function(key) {};
  * @return {ol.Coordinate}
  */
 ol.geom.GeometryCollection.prototype.getClosestPoint = function(point, opt_closestPoint) {};
+
+
+/**
+ * @param {ol.Coordinate} coordinate
+ * @return {boolean}
+ */
+ol.geom.GeometryCollection.prototype.containsCoordinate = function(coordinate) {};
 
 
 /**
@@ -7904,6 +7932,13 @@ ol.geom.LinearRing.prototype.getClosestPoint = function(point, opt_closestPoint)
 
 
 /**
+ * @param {ol.Coordinate} coordinate
+ * @return {boolean}
+ */
+ol.geom.LinearRing.prototype.containsCoordinate = function(coordinate) {};
+
+
+/**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
@@ -8039,6 +8074,13 @@ ol.geom.LineString.prototype.getLayout = function() {};
  * @return {ol.Coordinate}
  */
 ol.geom.LineString.prototype.getClosestPoint = function(point, opt_closestPoint) {};
+
+
+/**
+ * @param {ol.Coordinate} coordinate
+ * @return {boolean}
+ */
+ol.geom.LineString.prototype.containsCoordinate = function(coordinate) {};
 
 
 /**
@@ -8180,6 +8222,13 @@ ol.geom.MultiLineString.prototype.getClosestPoint = function(point, opt_closestP
 
 
 /**
+ * @param {ol.Coordinate} coordinate
+ * @return {boolean}
+ */
+ol.geom.MultiLineString.prototype.containsCoordinate = function(coordinate) {};
+
+
+/**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
@@ -8315,6 +8364,13 @@ ol.geom.MultiPoint.prototype.getLayout = function() {};
  * @return {ol.Coordinate}
  */
 ol.geom.MultiPoint.prototype.getClosestPoint = function(point, opt_closestPoint) {};
+
+
+/**
+ * @param {ol.Coordinate} coordinate
+ * @return {boolean}
+ */
+ol.geom.MultiPoint.prototype.containsCoordinate = function(coordinate) {};
 
 
 /**
@@ -8456,6 +8512,13 @@ ol.geom.MultiPolygon.prototype.getClosestPoint = function(point, opt_closestPoin
 
 
 /**
+ * @param {ol.Coordinate} coordinate
+ * @return {boolean}
+ */
+ol.geom.MultiPolygon.prototype.containsCoordinate = function(coordinate) {};
+
+
+/**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
@@ -8594,6 +8657,13 @@ ol.geom.Point.prototype.getClosestPoint = function(point, opt_closestPoint) {};
 
 
 /**
+ * @param {ol.Coordinate} coordinate
+ * @return {boolean}
+ */
+ol.geom.Point.prototype.containsCoordinate = function(coordinate) {};
+
+
+/**
  * @param {ol.Extent=} opt_extent
  * @return {ol.Extent}
  */
@@ -8729,6 +8799,13 @@ ol.geom.Polygon.prototype.getLayout = function() {};
  * @return {ol.Coordinate}
  */
 ol.geom.Polygon.prototype.getClosestPoint = function(point, opt_closestPoint) {};
+
+
+/**
+ * @param {ol.Coordinate} coordinate
+ * @return {boolean}
+ */
+ol.geom.Polygon.prototype.containsCoordinate = function(coordinate) {};
 
 
 /**

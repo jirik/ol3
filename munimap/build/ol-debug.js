@@ -1,6 +1,6 @@
 // OpenLayers 3. See http://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/ol3/master/LICENSE.md
-// Version: v3.14.2-11-ga5fdee7
+// Version: v3.14.2-12-gfc612ad
 
 (function (root, factory) {
   if (typeof exports === "object") {
@@ -15167,6 +15167,7 @@ ol.geom.Geometry.prototype.getClosestPoint = function(point, opt_closestPoint) {
 /**
  * @param {ol.Coordinate} coordinate Coordinate.
  * @return {boolean} Contains coordinate.
+ * @api
  */
 ol.geom.Geometry.prototype.containsCoordinate = function(coordinate) {
   return this.containsXY(coordinate[0], coordinate[1]);
@@ -109829,6 +109830,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.Geometry.prototype,
+    'containsCoordinate',
+    ol.geom.Geometry.prototype.containsCoordinate);
+
+goog.exportProperty(
+    ol.geom.Geometry.prototype,
     'getExtent',
     ol.geom.Geometry.prototype.getExtent);
 
@@ -113779,6 +113785,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.SimpleGeometry.prototype,
+    'containsCoordinate',
+    ol.geom.SimpleGeometry.prototype.containsCoordinate);
+
+goog.exportProperty(
+    ol.geom.SimpleGeometry.prototype,
     'getExtent',
     ol.geom.SimpleGeometry.prototype.getExtent);
 
@@ -113879,6 +113890,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.Circle.prototype,
+    'containsCoordinate',
+    ol.geom.Circle.prototype.containsCoordinate);
+
+goog.exportProperty(
+    ol.geom.Circle.prototype,
     'getExtent',
     ol.geom.Circle.prototype.getExtent);
 
@@ -113956,6 +113972,11 @@ goog.exportProperty(
     ol.geom.GeometryCollection.prototype,
     'getClosestPoint',
     ol.geom.GeometryCollection.prototype.getClosestPoint);
+
+goog.exportProperty(
+    ol.geom.GeometryCollection.prototype,
+    'containsCoordinate',
+    ol.geom.GeometryCollection.prototype.containsCoordinate);
 
 goog.exportProperty(
     ol.geom.GeometryCollection.prototype,
@@ -114059,6 +114080,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.LinearRing.prototype,
+    'containsCoordinate',
+    ol.geom.LinearRing.prototype.containsCoordinate);
+
+goog.exportProperty(
+    ol.geom.LinearRing.prototype,
     'getExtent',
     ol.geom.LinearRing.prototype.getExtent);
 
@@ -114156,6 +114182,11 @@ goog.exportProperty(
     ol.geom.LineString.prototype,
     'getClosestPoint',
     ol.geom.LineString.prototype.getClosestPoint);
+
+goog.exportProperty(
+    ol.geom.LineString.prototype,
+    'containsCoordinate',
+    ol.geom.LineString.prototype.containsCoordinate);
 
 goog.exportProperty(
     ol.geom.LineString.prototype,
@@ -114259,6 +114290,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.MultiLineString.prototype,
+    'containsCoordinate',
+    ol.geom.MultiLineString.prototype.containsCoordinate);
+
+goog.exportProperty(
+    ol.geom.MultiLineString.prototype,
     'getExtent',
     ol.geom.MultiLineString.prototype.getExtent);
 
@@ -114356,6 +114392,11 @@ goog.exportProperty(
     ol.geom.MultiPoint.prototype,
     'getClosestPoint',
     ol.geom.MultiPoint.prototype.getClosestPoint);
+
+goog.exportProperty(
+    ol.geom.MultiPoint.prototype,
+    'containsCoordinate',
+    ol.geom.MultiPoint.prototype.containsCoordinate);
 
 goog.exportProperty(
     ol.geom.MultiPoint.prototype,
@@ -114459,6 +114500,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.MultiPolygon.prototype,
+    'containsCoordinate',
+    ol.geom.MultiPolygon.prototype.containsCoordinate);
+
+goog.exportProperty(
+    ol.geom.MultiPolygon.prototype,
     'getExtent',
     ol.geom.MultiPolygon.prototype.getExtent);
 
@@ -114559,6 +114605,11 @@ goog.exportProperty(
 
 goog.exportProperty(
     ol.geom.Point.prototype,
+    'containsCoordinate',
+    ol.geom.Point.prototype.containsCoordinate);
+
+goog.exportProperty(
+    ol.geom.Point.prototype,
     'getExtent',
     ol.geom.Point.prototype.getExtent);
 
@@ -114656,6 +114707,11 @@ goog.exportProperty(
     ol.geom.Polygon.prototype,
     'getClosestPoint',
     ol.geom.Polygon.prototype.getClosestPoint);
+
+goog.exportProperty(
+    ol.geom.Polygon.prototype,
+    'containsCoordinate',
+    ol.geom.Polygon.prototype.containsCoordinate);
 
 goog.exportProperty(
     ol.geom.Polygon.prototype,

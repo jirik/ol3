@@ -10,6 +10,7 @@
    * ol.extent.getArea
    * ol.extent.getEnlargedArea
    * ol.extent.getForViewAndSize
+   * ol.geom.Geometry#containsCoordinate
 * Change default values of @define variables in `munimap/config/ol.json`:
    * ol.ENABLE_DOM=false
    * ol.ENABLE_IMAGE=false
