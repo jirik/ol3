@@ -10,3 +10,4 @@
 ## How to generate single JS file
 * Run `node ./tasks/build-ext.js` to generate wrappers of external libraries for compiler.
 * Run `node ./tasks/build.js ./munimap/config/ol.json ./munimap/build/ol.js`
+* Run `node ./tasks/build.js ./munimap/config/ol-debug.json ./munimap/build/ol-debug.js`
