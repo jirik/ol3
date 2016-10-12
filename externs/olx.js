@@ -3987,7 +3987,8 @@ olx.source.BingMapsOptions.prototype.wrapX;
  *     logo: (string|undefined),
  *     projection: ol.proj.ProjectionLike,
  *     source: ol.source.Vector,
- *     wrapX: (boolean|undefined)}}
+ *     wrapX: (boolean|undefined),
+ *     compareFn: (ol.source.Cluster.CompareFunction|undefined)}}
  * @api
  */
 olx.source.ClusterOptions;
@@ -4055,6 +4056,14 @@ olx.source.ClusterOptions.prototype.source;
  * @api
  */
 olx.source.ClusterOptions.prototype.wrapX;
+
+
+/**
+ * Sort features before clustering. Default is undefined (no sorting).
+ * @type {ol.source.Cluster.CompareFunction|undefined}
+ * @api
+ */
+olx.source.ClusterOptions.prototype.compareFn;
 
 
 /**
@@ -6174,8 +6183,8 @@ olx.style.FillOptions;
 
 
 /**
- * A color, gradient or pattern. See {@link ol.color} 
- * and {@link ol.colorlike} for possible formats. Default null; 
+ * A color, gradient or pattern. See {@link ol.color}
+ * and {@link ol.colorlike} for possible formats. Default null;
  * if null, the Canvas/renderer default black will be used.
  * @type {ol.Color|ol.ColorLike|undefined}
  * @api

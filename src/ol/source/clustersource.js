@@ -43,6 +43,12 @@ ol.source.Cluster = function(options) {
   this.distance_ = options.distance !== undefined ? options.distance : 20;
 
   /**
+   * @type {ol.source.Cluster.CompareFunction|undefined}
+   * @private
+   */
+  this.compareFn_ = options.compareFn;
+
+  /**
    * @type {Array.<ol.Feature>}
    * @private
    */
@@ -58,6 +64,12 @@ ol.source.Cluster = function(options) {
       ol.source.Cluster.prototype.onSourceChange_, this);
 };
 goog.inherits(ol.source.Cluster, ol.source.Vector);
+
+
+/**
+ * @typedef {function(ol.Feature, ol.Feature): number}
+ */
+ol.source.Cluster.CompareFunction;
 
 
 /**
@@ -108,20 +120,30 @@ ol.source.Cluster.prototype.cluster_ = function() {
   var extent = ol.extent.createEmpty();
   var mapDistance = this.distance_ * this.resolution_;
   var features = this.source_.getFeatures();
+  if (this.compareFn_) {
+    features.sort(this.compareFn_);
+  }
 
   /**
    * @type {!Object.<string, boolean>}
    */
   var clustered = {};
 
+  /**
+   * @type {Array<ol.Feature>}
+   */
+  var noGeometry = [];
+
   for (var i = 0, ii = features.length; i < ii; i++) {
     var feature = features[i];
     if (!(goog.getUid(feature).toString() in clustered)) {
       var geometry = feature.getGeometry();
-      goog.asserts.assert(geometry instanceof ol.geom.Point,
-          'feature geometry is a ol.geom.Point instance');
-      var coordinates = geometry.getCoordinates();
-      ol.extent.createOrUpdateFromCoordinate(coordinates, extent);
+      if (!geometry) {
+        noGeometry.push(feature);
+        continue;
+      }
+      var center = ol.extent.getCenter(geometry.getExtent());
+      ol.extent.createOrUpdateFromCoordinate(center, extent);
       ol.extent.buffer(extent, mapDistance, extent);
 
       var neighbors = this.source_.getFeaturesInExtent(extent);
@@ -139,7 +161,8 @@ ol.source.Cluster.prototype.cluster_ = function() {
     }
   }
   goog.asserts.assert(
-      Object.keys(clustered).length == this.source_.getFeatures().length,
+      goog.object.getCount(clustered) + noGeometry.length ==
+          this.source_.getFeatures().length,
       'number of clustered equals number of features in the source');
 };
 
@@ -154,10 +177,9 @@ ol.source.Cluster.prototype.createCluster_ = function(features) {
   var centroid = [0, 0];
   for (var i = 0; i < length; i++) {
     var geometry = features[i].getGeometry();
-    goog.asserts.assert(geometry instanceof ol.geom.Point,
-        'feature geometry is a ol.geom.Point instance');
-    var coordinates = geometry.getCoordinates();
-    ol.coordinate.add(centroid, coordinates);
+    goog.asserts.assert(!!geometry, 'feature geometry should not be null');
+    var center = ol.extent.getCenter(geometry.getExtent());
+    ol.coordinate.add(centroid, center);
   }
   ol.coordinate.scale(centroid, 1 / length);
 
