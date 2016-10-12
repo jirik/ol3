@@ -274,6 +274,7 @@ ol.extent.createOrUpdateEmpty = function(opt_extent) {
  * @param {ol.Coordinate} coordinate Coordinate.
  * @param {ol.Extent=} opt_extent Extent.
  * @return {ol.Extent} Extent.
+ * @api
  */
 ol.extent.createOrUpdateFromCoordinate = function(coordinate, opt_extent) {
   var x = coordinate[0];
@@ -552,6 +553,7 @@ ol.extent.getCorner = function(extent, corner) {
  * @param {ol.Extent} extent1 Extent 1.
  * @param {ol.Extent} extent2 Extent 2.
  * @return {number} Enlarged area.
+ * @api
  */
 ol.extent.getEnlargedArea = function(extent1, extent2) {
   var minX = Math.min(extent1[0], extent2[0]);
@@ -569,6 +571,7 @@ ol.extent.getEnlargedArea = function(extent1, extent2) {
  * @param {ol.Size} size Size.
  * @param {ol.Extent=} opt_extent Destination extent.
  * @return {ol.Extent} Extent.
+ * @api
  */
 ol.extent.getForViewAndSize = function(center, resolution, rotation, size, opt_extent) {
   var dx = resolution * size[0] / 2;

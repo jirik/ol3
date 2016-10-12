@@ -968,6 +968,14 @@ ol.extent.createEmpty = function() {};
 
 
 /**
+ * @param {ol.Coordinate} coordinate
+ * @param {ol.Extent=} opt_extent
+ * @return {ol.Extent}
+ */
+ol.extent.createOrUpdateFromCoordinate = function(coordinate, opt_extent) {};
+
+
+/**
  * @param {ol.Extent} extent1
  * @param {ol.Extent} extent2
  * @return {boolean}
@@ -1002,6 +1010,25 @@ ol.extent.getBottomRight = function(extent) {};
  * @return {ol.Coordinate}
  */
 ol.extent.getCenter = function(extent) {};
+
+
+/**
+ * @param {ol.Extent} extent1
+ * @param {ol.Extent} extent2
+ * @return {number}
+ */
+ol.extent.getEnlargedArea = function(extent1, extent2) {};
+
+
+/**
+ * @param {ol.Coordinate} center
+ * @param {number} resolution
+ * @param {number} rotation
+ * @param {ol.Size} size
+ * @param {ol.Extent=} opt_extent
+ * @return {ol.Extent}
+ */
+ol.extent.getForViewAndSize = function(center, resolution, rotation, size, opt_extent) {};
 
 
 /**

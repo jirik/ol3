@@ -1,6 +1,6 @@
 // OpenLayers 3. See http://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/ol3/master/LICENSE.md
-// Version: v3.14.2-1-g19d1635
+// Version: v3.14.2-6-g94880a8
 
 (function (root, factory) {
   if (typeof exports === "object") {
@@ -12978,6 +12978,7 @@ ol.extent.createOrUpdateEmpty = function(opt_extent) {
  * @param {ol.Coordinate} coordinate Coordinate.
  * @param {ol.Extent=} opt_extent Extent.
  * @return {ol.Extent} Extent.
+ * @api
  */
 ol.extent.createOrUpdateFromCoordinate = function(coordinate, opt_extent) {
   var x = coordinate[0];
@@ -13256,6 +13257,7 @@ ol.extent.getCorner = function(extent, corner) {
  * @param {ol.Extent} extent1 Extent 1.
  * @param {ol.Extent} extent2 Extent 2.
  * @return {number} Enlarged area.
+ * @api
  */
 ol.extent.getEnlargedArea = function(extent1, extent2) {
   var minX = Math.min(extent1[0], extent2[0]);
@@ -13273,6 +13275,7 @@ ol.extent.getEnlargedArea = function(extent1, extent2) {
  * @param {ol.Size} size Size.
  * @param {ol.Extent=} opt_extent Destination extent.
  * @return {ol.Extent} Extent.
+ * @api
  */
 ol.extent.getForViewAndSize = function(center, resolution, rotation, size, opt_extent) {
   var dx = resolution * size[0] / 2;
@@ -109076,6 +109079,11 @@ goog.exportSymbol(
     OPENLAYERS);
 
 goog.exportSymbol(
+    'ol.extent.createOrUpdateFromCoordinate',
+    ol.extent.createOrUpdateFromCoordinate,
+    OPENLAYERS);
+
+goog.exportSymbol(
     'ol.extent.equals',
     ol.extent.equals,
     OPENLAYERS);
@@ -109098,6 +109106,16 @@ goog.exportSymbol(
 goog.exportSymbol(
     'ol.extent.getCenter',
     ol.extent.getCenter,
+    OPENLAYERS);
+
+goog.exportSymbol(
+    'ol.extent.getEnlargedArea',
+    ol.extent.getEnlargedArea,
+    OPENLAYERS);
+
+goog.exportSymbol(
+    'ol.extent.getForViewAndSize',
+    ol.extent.getForViewAndSize,
     OPENLAYERS);
 
 goog.exportSymbol(
