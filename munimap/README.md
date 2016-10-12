@@ -8,6 +8,7 @@
 * Run `node ./tasks/generate-externs.js ./build/ol.externs.js`
 * Manually create `munimap/externs/missing.js` with missing externs. See e.g. [this issue](https://github.com/openlayers/ol3/pull/5010).
 * Remove all occurences of `, undefined: (Object)` from `build/ol.externs.js`
+* Manually fix externs issues related to inheritDoc, e.g. `ol.geom.Point#intersectsExtent`.
 
 
 ## How to generate single JS file

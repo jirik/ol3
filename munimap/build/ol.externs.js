@@ -2428,8 +2428,10 @@ ol.geom.Point.prototype.getType = function() {};
 
 
 /**
+* @param {ol.Extent} extent Extent.
+* @return {boolean} `true` if the geometry and the extent intersect.
  */
-ol.geom.Point.prototype.intersectsExtent = function() {};
+ol.geom.Point.prototype.intersectsExtent = function(extent) {};
 
 
 /**
