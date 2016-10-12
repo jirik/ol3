@@ -5,7 +5,7 @@
 * Run `npm install` to install NodeJS deps. Errors related to node-gyp and slimmerjs are not crucial.
 
 ## How to generate externs
-* Run `node ./tasks/generate-externs.js ./build/ol.externs.js`
+* Run `node ./tasks/generate-externs.js ./munimap/build/ol.externs.js`
 * Manually create `munimap/externs/missing.js` with missing externs. See e.g. [this issue](https://github.com/openlayers/ol3/pull/5010).
 * Remove all occurences of `, undefined: (Object)` from `build/ol.externs.js`
 * Manually fix externs issues related to inheritDoc, e.g. `ol.geom.Point#intersectsExtent`.
