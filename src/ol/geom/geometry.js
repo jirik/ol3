@@ -151,6 +151,7 @@ ol.geom.Geometry.prototype.computeExtent = goog.abstractMethod;
  * @param {number} x X.
  * @param {number} y Y.
  * @return {boolean} Contains (x, y).
+ * @api
  */
 ol.geom.Geometry.prototype.containsXY = goog.functions.FALSE;
 
