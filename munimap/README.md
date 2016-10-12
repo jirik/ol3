@@ -4,9 +4,11 @@
 * Run `make check-deps` to ensure that basic dependencies are OK.
 * Run `npm install` to install NodeJS deps. Errors related to node-gyp and slimmerjs are not crucial.
 
-## Extend and limit API
+## Change API
 * Manually tag non-API methods you want to use with @api, e.g. `ol.extent.createOrUpdateFromCoordinate`.
 * Change default values of @define variables in `munimap/config/ol.json`, e.g. `ol.ENABLE_DOM`.
+* Change behaviour:
+   * ol.source.Cluster
 
 ## Generate externs
 * Run `node ./tasks/generate-externs.js ./munimap/build/ol.externs.js`
