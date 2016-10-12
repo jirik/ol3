@@ -993,6 +993,13 @@ ol.extent.extend = function(extent1, extent2) {};
 
 /**
  * @param {ol.Extent} extent
+ * @return {number}
+ */
+ol.extent.getArea = function(extent) {};
+
+
+/**
+ * @param {ol.Extent} extent
  * @return {ol.Coordinate}
  */
 ol.extent.getBottomLeft = function(extent) {};
@@ -17688,6 +17695,12 @@ ol.Size;
 
 
 /**
+ * @typedef {Function}
+ */
+ol.source.Cluster.CompareFunction;
+
+
+/**
  * @typedef {string}
  */
 ol.source.State;
@@ -18222,7 +18235,7 @@ olx.source.BingMapsOptions;
 
 
 /**
- * @typedef {{attributions: (Array.<ol.Attribution>|undefined), distance: (number|undefined), extent: (ol.Extent|undefined), format: (ol.format.Feature|undefined), logo: (string|undefined), projection: (ol.proj.ProjectionLike), source: (ol.source.Vector), wrapX: (boolean|undefined)}}
+ * @typedef {{attributions: (Array.<ol.Attribution>|undefined), distance: (number|undefined), extent: (ol.Extent|undefined), format: (ol.format.Feature|undefined), logo: (string|undefined), projection: (ol.proj.ProjectionLike), source: (ol.source.Vector), wrapX: (boolean|undefined), compareFn: (ol.source.Cluster.CompareFunction|undefined)}}
  */
 olx.source.ClusterOptions;
 

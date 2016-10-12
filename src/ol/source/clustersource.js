@@ -68,6 +68,7 @@ goog.inherits(ol.source.Cluster, ol.source.Vector);
 
 /**
  * @typedef {function(ol.Feature, ol.Feature): number}
+ * @api
  */
 ol.source.Cluster.CompareFunction;
 

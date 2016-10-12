@@ -1,6 +1,6 @@
 // OpenLayers 3. See http://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/ol3/master/LICENSE.md
-// Version: v3.14.2-9-g7efb6fe
+// Version: v3.14.2-11-ga5fdee7
 
 (function (root, factory) {
   if (typeof exports === "object") {
@@ -13186,6 +13186,7 @@ ol.extent.forEachCorner = function(extent, callback, opt_this) {
 /**
  * @param {ol.Extent} extent Extent.
  * @return {number} Area.
+ * @api
  */
 ol.extent.getArea = function(extent) {
   var area = 0;
@@ -103362,6 +103363,7 @@ goog.inherits(ol.source.Cluster, ol.source.Vector);
 
 /**
  * @typedef {function(ol.Feature, ol.Feature): number}
+ * @api
  */
 ol.source.Cluster.CompareFunction;
 
@@ -109113,6 +109115,11 @@ goog.exportSymbol(
 goog.exportSymbol(
     'ol.extent.extend',
     ol.extent.extend,
+    OPENLAYERS);
+
+goog.exportSymbol(
+    'ol.extent.getArea',
+    ol.extent.getArea,
     OPENLAYERS);
 
 goog.exportSymbol(
