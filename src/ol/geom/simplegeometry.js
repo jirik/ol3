@@ -56,13 +56,7 @@ ol.geom.SimpleGeometry.getLayoutForStride_ = function(stride) {
   } else if (stride == 3) {
     layout = ol.geom.GeometryLayout.XYZ;
   } else if (stride == 4) {
-<<<<<<< HEAD
-    return ol.geom.GeometryLayout.XYZM;
-  } else {
-    throw new Error('unsupported stride: ' + stride);
-=======
     layout = ol.geom.GeometryLayout.XYZM;
->>>>>>> v3.19.1
   }
   ol.DEBUG && console.assert(layout, 'unsupported stride: ' + stride);
   return /** @type {ol.geom.GeometryLayout} */ (layout);
@@ -80,17 +74,12 @@ ol.geom.SimpleGeometry.getStrideForLayout = function(layout) {
   } else if (layout == ol.geom.GeometryLayout.XYZ || layout == ol.geom.GeometryLayout.XYM) {
     stride = 3;
   } else if (layout == ol.geom.GeometryLayout.XYZM) {
-<<<<<<< HEAD
-    return 4;
-  } else {
-    throw new Error('unsupported layout: ' + layout);
-=======
     stride = 4;
->>>>>>> v3.19.1
   }
   ol.DEBUG && console.assert(stride, 'unsupported layout: ' + layout);
   return /** @type {number} */ (stride);
 };
+
 
 
 /**
