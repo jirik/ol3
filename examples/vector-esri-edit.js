@@ -1,4 +1,3 @@
-goog.require('ol.Attribution');
 goog.require('ol.Map');
 goog.require('ol.View');
 goog.require('ol.format.EsriJSON');
@@ -12,9 +11,10 @@ goog.require('ol.loadingstrategy');
 goog.require('ol.proj');
 goog.require('ol.source.Vector');
 goog.require('ol.source.XYZ');
+goog.require('ol.tilegrid');
 
 
-var serviceUrl = 'http://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/' +
+var serviceUrl = 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/' +
     'services/PDX_Pedestrian_Districts/FeatureServer/';
 var layer = '0';
 
@@ -53,15 +53,11 @@ var vector = new ol.layer.Vector({
   source: vectorSource
 });
 
-var attribution = new ol.Attribution({
-  html: 'Tiles &copy; <a href="http://services.arcgisonline.com/ArcGIS/' +
-      'rest/services/World_Topo_Map/MapServer">ArcGIS</a>'
-});
-
 var raster = new ol.layer.Tile({
   source: new ol.source.XYZ({
-    attributions: [attribution],
-    url: 'http://server.arcgisonline.com/ArcGIS/rest/services/' +
+    attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
+        'rest/services/World_Topo_Map/MapServer">ArcGIS</a>',
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
         'World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
   })
 });

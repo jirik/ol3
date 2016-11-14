@@ -3,17 +3,16 @@ goog.require('ol.View');
 goog.require('ol.extent');
 goog.require('ol.layer.Tile');
 goog.require('ol.proj');
-goog.require('ol.source.MapQuest');
+goog.require('ol.source.OSM');
 goog.require('ol.source.TileImage');
 
 
 var map = new ol.Map({
   layers: [
     new ol.layer.Tile({
-      source: new ol.source.MapQuest({layer: 'osm'})
+      source: new ol.source.OSM()
     })
   ],
-  renderer: common.getRendererFromQueryString(),
   target: 'map',
   view: new ol.View({
     projection: 'EPSG:3857',
@@ -64,7 +63,7 @@ function setProjection(code, name, proj4def, bbox) {
 
 function search(query) {
   resultSpan.innerHTML = 'Searching ...';
-  fetch('http://epsg.io/?format=json&q=' + query).then(function(response) {
+  fetch('https://epsg.io/?format=json&q=' + query).then(function(response) {
     return response.json();
   }).then(function(json) {
     var results = json['results'];

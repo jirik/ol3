@@ -1,11 +1,10 @@
-goog.require('ol.Attribution');
 goog.require('ol.Map');
 goog.require('ol.View');
 goog.require('ol.extent');
 goog.require('ol.format.WMTSCapabilities');
 goog.require('ol.layer.Tile');
 goog.require('ol.proj');
-goog.require('ol.source.MapQuest');
+goog.require('ol.source.OSM');
 goog.require('ol.source.TileImage');
 goog.require('ol.source.TileWMS');
 goog.require('ol.source.WMTS');
@@ -53,24 +52,24 @@ var proj54009 = ol.proj.get('ESRI:54009');
 proj54009.setExtent([-18e6, -9e6, 18e6, 9e6]);
 
 
-var layers = [];
+var layers = {};
 
 layers['bng'] = new ol.layer.Tile({
   source: new ol.source.XYZ({
     projection: 'EPSG:27700',
-    url: 'http://tileserver.maptiler.com/miniscale/{z}/{x}/{y}.png',
+    url: 'https://tileserver.maptiler.com/miniscale/{z}/{x}/{y}.png',
     crossOrigin: '',
     maxZoom: 6
   })
 });
 
-layers['mapquest'] = new ol.layer.Tile({
-  source: new ol.source.MapQuest({layer: 'osm'})
+layers['osm'] = new ol.layer.Tile({
+  source: new ol.source.OSM()
 });
 
 layers['wms4326'] = new ol.layer.Tile({
   source: new ol.source.TileWMS({
-    url: 'http://demo.boundlessgeo.com/geoserver/wms',
+    url: 'https://ahocevar.com/geoserver/wms',
     crossOrigin: '',
     params: {
       'LAYERS': 'ne:NE1_HR_LC_SR_W_DR'
@@ -81,24 +80,20 @@ layers['wms4326'] = new ol.layer.Tile({
 
 layers['wms21781'] = new ol.layer.Tile({
   source: new ol.source.TileWMS({
-    attributions: [new ol.Attribution({
-      html: '&copy; ' +
-          '<a href="http://www.geo.admin.ch/internet/geoportal/' +
-          'en/home.html">' +
-          'Pixelmap 1:1000000 / geo.admin.ch</a>'
-    })],
+    attributions: '© <a href="http://www.geo.admin.ch/internet/geoportal/' +
+      'en/home.html">Pixelmap 1:1000000 / geo.admin.ch</a>',
     crossOrigin: 'anonymous',
     params: {
       'LAYERS': 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale',
       'FORMAT': 'image/jpeg'
     },
-    url: 'http://wms.geo.admin.ch/',
+    url: 'https://wms.geo.admin.ch/',
     projection: 'EPSG:21781'
   })
 });
 
 var parser = new ol.format.WMTSCapabilities();
-var url = 'http://map1.vis.earthdata.nasa.gov/wmts-arctic/' +
+var url = 'https://map1.vis.earthdata.nasa.gov/wmts-arctic/' +
     'wmts.cgi?SERVICE=WMTS&request=GetCapabilities';
 fetch(url).then(function(response) {
   return response.text();
@@ -116,14 +111,12 @@ fetch(url).then(function(response) {
 
 layers['grandcanyon'] = new ol.layer.Tile({
   source: new ol.source.XYZ({
-    url: 'http://tileserver.maptiler.com/grandcanyon@2x/{z}/{x}/{y}.png',
+    url: 'https://tileserver.maptiler.com/grandcanyon@2x/{z}/{x}/{y}.png',
     crossOrigin: '',
     tilePixelRatio: 2,
     maxZoom: 15,
-    attributions: [new ol.Attribution({
-      html: 'Tiles &copy; USGS, rendered with ' +
-          '<a href="http://www.maptiler.com/">MapTiler</a>'
-    })]
+    attributions: 'Tiles © USGS, rendered with ' +
+      '<a href="http://www.maptiler.com/">MapTiler</a>'
   })
 });
 
@@ -136,7 +129,7 @@ for (var i = 0, ii = resolutions.length; i < ii; ++i) {
 
 layers['states'] = new ol.layer.Tile({
   source: new ol.source.TileWMS({
-    url: 'http://demo.boundlessgeo.com/geoserver/wms',
+    url: 'https://ahocevar.com/geoserver/wms',
     crossOrigin: '',
     params: {'LAYERS': 'topp:states', 'TILED': true},
     serverType: 'geoserver',
@@ -152,10 +145,9 @@ layers['states'] = new ol.layer.Tile({
 
 var map = new ol.Map({
   layers: [
-    layers['mapquest'],
+    layers['osm'],
     layers['bng']
   ],
-  renderer: common.getRendererFromQueryString(),
   target: 'map',
   view: new ol.View({
     projection: 'EPSG:3857',

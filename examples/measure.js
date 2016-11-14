@@ -9,7 +9,7 @@ goog.require('ol.interaction.Draw');
 goog.require('ol.layer.Tile');
 goog.require('ol.layer.Vector');
 goog.require('ol.proj');
-goog.require('ol.source.MapQuest');
+goog.require('ol.source.OSM');
 goog.require('ol.source.Vector');
 goog.require('ol.style.Circle');
 goog.require('ol.style.Fill');
@@ -20,7 +20,7 @@ goog.require('ol.style.Style');
 var wgs84Sphere = new ol.Sphere(6378137);
 
 var raster = new ol.layer.Tile({
-  source: new ol.source.MapQuest({layer: 'sat'})
+  source: new ol.source.OSM()
 });
 
 var source = new ol.source.Vector();
@@ -117,7 +117,7 @@ var pointerMoveHandler = function(evt) {
   helpTooltipElement.innerHTML = helpMsg;
   helpTooltip.setPosition(evt.coordinate);
 
-  $(helpTooltipElement).removeClass('hidden');
+  helpTooltipElement.classList.remove('hidden');
 };
 
 
@@ -132,8 +132,8 @@ var map = new ol.Map({
 
 map.on('pointermove', pointerMoveHandler);
 
-$(map.getViewport()).on('mouseout', function() {
-  $(helpTooltipElement).addClass('hidden');
+map.getViewport().addEventListener('mouseout', function() {
+  helpTooltipElement.classList.add('hidden');
 });
 
 var typeSelect = document.getElementById('type');
@@ -174,7 +174,7 @@ var formatLength = function(line) {
 
 
 /**
- * Format length output.
+ * Format area output.
  * @param {ol.geom.Polygon} polygon The polygon.
  * @return {string} Formatted area.
  */
@@ -243,10 +243,10 @@ function addInteraction() {
           var geom = evt.target;
           var output;
           if (geom instanceof ol.geom.Polygon) {
-            output = formatArea(/** @type {ol.geom.Polygon} */ (geom));
+            output = formatArea(geom);
             tooltipCoord = geom.getInteriorPoint().getCoordinates();
           } else if (geom instanceof ol.geom.LineString) {
-            output = formatLength(/** @type {ol.geom.LineString} */ (geom));
+            output = formatLength(geom);
             tooltipCoord = geom.getLastCoordinate();
           }
           measureTooltipElement.innerHTML = output;

@@ -1,5 +1,15 @@
 goog.provide('ol.test.featureloader');
 
+goog.require('ol.events');
+goog.require('ol.VectorTile');
+goog.require('ol.Feature');
+goog.require('ol.featureloader');
+goog.require('ol.format.GeoJSON');
+goog.require('ol.format.TextFeature');
+goog.require('ol.proj');
+goog.require('ol.source.Vector');
+
+
 describe('ol.featureloader', function() {
 
   describe('ol.featureloader.xhr', function() {
@@ -17,7 +27,7 @@ describe('ol.featureloader', function() {
 
     it('adds features to the source', function(done) {
       loader = ol.featureloader.xhr(url, format);
-      source.on(ol.source.VectorEventType.ADDFEATURE, function(e) {
+      source.on('addfeature', function(e) {
         expect(source.getFeatures().length).to.be.greaterThan(0);
         done();
       });
@@ -31,7 +41,7 @@ describe('ol.featureloader', function() {
         };
         loader = ol.featureloader.xhr(url, format);
 
-        source.on(ol.source.VectorEventType.ADDFEATURE, function(e) {
+        source.on('addfeature', function(e) {
           expect(source.getFeatures().length).to.be.greaterThan(0);
           done();
         });
@@ -61,43 +71,43 @@ describe('ol.featureloader', function() {
     var tile;
 
     beforeEach(function() {
-      tile = new ol.VectorTile([0, 0, 0], undefined, undefined, undefined,
-          undefined, ol.proj.get('EPSG:3857'));
+      tile = new ol.VectorTile([0, 0, 0]);
     });
 
     it('sets features on the tile', function(done) {
       var url = 'spec/ol/data/point.json';
       var format = new ol.format.GeoJSON();
       loader = ol.featureloader.tile(url, format);
-      goog.events.listen(tile, 'change', function(e) {
+      ol.events.listen(tile, 'change', function(e) {
         expect(tile.getFeatures().length).to.be.greaterThan(0);
         done();
       });
       loader.call(tile, [], 1, ol.proj.get('EPSG:3857'));
     });
 
-    (typeof ArrayBuffer == 'function' ? it : xit)(
-        'sets features on the tile and updates proj units', function(done) {
-          var url = 'spec/ol/data/14-8938-5680.vector.pbf';
-          var format = new ol.format.MVT();
-          loader = ol.featureloader.tile(url, format);
-          goog.events.listen(tile, 'change', function(e) {
-            expect(tile.getFeatures().length).to.be.greaterThan(0);
-            expect(tile.getProjection().getUnits()).to.be('tile-pixels');
-            done();
-          });
-          loader.call(tile, [], 1, ol.proj.get('EPSG:3857'));
+    it('sets features on the tile and updates proj units', function(done) {
+      // mock format that return a tile-pixels feature
+      var format = new ol.format.TextFeature();
+      format.readProjection = function(source) {
+        return new ol.proj.Projection({
+          code: '',
+          units: 'tile-pixels'
         });
+      };
+      format.readFeatures = function(source, options) {
+        return [new ol.Feature()];
+      };
+
+      var url = 'spec/ol/data/point.json';
+      loader = ol.featureloader.tile(url, format);
+      ol.events.listen(tile, 'change', function(e) {
+        expect(tile.getFeatures().length).to.be.greaterThan(0);
+        expect(tile.getProjection().getUnits()).to.be('tile-pixels');
+        done();
+      });
+      loader.call(tile, [], 1, ol.proj.get('EPSG:3857'));
+    });
 
   });
 
 });
-
-goog.require('goog.events');
-goog.require('ol.VectorTile');
-goog.require('ol.featureloader');
-goog.require('ol.format.GeoJSON');
-goog.require('ol.format.MVT');
-goog.require('ol.proj');
-goog.require('ol.source.Vector');
-goog.require('ol.source.VectorEventType');
