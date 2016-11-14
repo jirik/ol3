@@ -138,43 +138,9 @@ ol.source.Cluster.prototype.cluster_ = function() {
    * @type {!Object.<string, boolean>}
    */
   var clustered = {};
-  
-  /**
-   * @type {Array<ol.Feature>}
-   */
-  var noGeometry = [];
 
   for (var i = 0, ii = features.length; i < ii; i++) {
     var feature = features[i];
-<<<<<<< HEAD:src/ol/source/clustersource.js
-    if (!(goog.getUid(feature).toString() in clustered)) {
-      var geometry = feature.getGeometry();
-      if(!geometry) {
-        noGeometry.push(feature);
-        continue;
-      }
-      var center = ol.extent.getCenter(geometry.getExtent());
-      ol.extent.createOrUpdateFromCoordinate(center, extent);
-      ol.extent.buffer(extent, mapDistance, extent);
-
-      var neighbors = this.source_.getFeaturesInExtent(extent);
-      goog.asserts.assert(neighbors.length >= 1, 'at least one neighbor found');
-      neighbors = neighbors.filter(function(neighbor) {
-        var uid = goog.getUid(neighbor).toString();
-        if (!(uid in clustered)) {
-          clustered[uid] = true;
-          return true;
-        } else {
-          return false;
-        }
-      });
-      this.features_.push(this.createCluster_(neighbors));
-    }
-  }
-  goog.asserts.assert(
-      goog.object.getCount(clustered) + noGeometry.length ==
-          this.source_.getFeatures().length,
-=======
     if (!(ol.getUid(feature).toString() in clustered)) {
       var geometry = this.geometryFunction_(feature);
       if (geometry) {
@@ -199,7 +165,6 @@ ol.source.Cluster.prototype.cluster_ = function() {
   }
   ol.DEBUG && console.assert(
       Object.keys(clustered).length == this.source_.getFeatures().length,
->>>>>>> v3.19.1:src/ol/source/cluster.js
       'number of clustered equals number of features in the source');
 };
 
@@ -211,13 +176,6 @@ ol.source.Cluster.prototype.cluster_ = function() {
  */
 ol.source.Cluster.prototype.createCluster_ = function(features) {
   var centroid = [0, 0];
-<<<<<<< HEAD:src/ol/source/clustersource.js
-  for (var i = 0; i < length; i++) {
-    var geometry = features[i].getGeometry();
-    goog.asserts.assert(!!geometry, 'feature geometry should not be null');
-    var center = ol.extent.getCenter(geometry.getExtent());
-    ol.coordinate.add(centroid, center);
-=======
   for (var i = features.length - 1; i >= 0; --i) {
     var geometry = this.geometryFunction_(features[i]);
     if (geometry) {
@@ -225,7 +183,6 @@ ol.source.Cluster.prototype.createCluster_ = function(features) {
     } else {
       features.splice(i, 1);
     }
->>>>>>> v3.19.1:src/ol/source/cluster.js
   }
   ol.coordinate.scale(centroid, 1 / features.length);
 
