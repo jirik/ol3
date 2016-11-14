@@ -14,6 +14,7 @@
  *
  * They are now all in the `ol` namespace.
  */
+goog.provide('ol.typedefs');
 
 
 /**
