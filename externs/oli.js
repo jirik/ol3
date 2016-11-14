@@ -50,6 +50,12 @@ oli.events.Event.prototype.stopPropagation = function() {};
 
 
 /**
+ * @type {Object}
+ */
+oli.Collection;
+
+
+/**
  * @interface
  */
 oli.Collection.Event = function() {};
