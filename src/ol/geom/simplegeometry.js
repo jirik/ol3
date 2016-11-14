@@ -81,7 +81,6 @@ ol.geom.SimpleGeometry.getStrideForLayout = function(layout) {
 };
 
 
-
 /**
  * @inheritDoc
  */
