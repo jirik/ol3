@@ -16,7 +16,6 @@ goog.require('goog.events.EventType');
  *
  * @constructor
  * @extends {goog.events.EventTarget}
- * @suppress {checkStructDictInheritance}
  * @struct
  * @api stable
  */
