@@ -187,7 +187,7 @@ ol.renderer.Layer.prototype.scheduleExpireCache =
             /**
              * @param {ol.source.Tile} tileSource Tile source.
              * @param {ol.Map} map Map.
-             * @param {olx.FrameState} frameState Frame state.
+             * @param {?olx.FrameState} frameState Frame state.
              */
             function(tileSource, map, frameState) {
               var tileSourceKey = goog.getUid(tileSource).toString();

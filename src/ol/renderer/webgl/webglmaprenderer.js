@@ -336,7 +336,7 @@ ol.renderer.webgl.Map.prototype.disposeInternal = function() {
 
 /**
  * @param {ol.Map} map Map.
- * @param {olx.FrameState} frameState Frame state.
+ * @param {?olx.FrameState} frameState Frame state.
  * @private
  */
 ol.renderer.webgl.Map.prototype.expireCache_ = function(map, frameState) {

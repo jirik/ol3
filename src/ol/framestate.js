@@ -5,7 +5,7 @@ goog.provide('ol.PreRenderFunction');
 
 
 /**
- * @typedef {function(ol.Map, ?olx.FrameState): boolean}
+ * @typedef {function(ol.Map, ?olx.FrameState)}
  */
 ol.PostRenderFunction;
 

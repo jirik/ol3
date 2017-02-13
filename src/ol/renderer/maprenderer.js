@@ -108,7 +108,7 @@ ol.renderer.Map.prototype.disposeInternal = function() {
 
 /**
  * @param {ol.Map} map Map.
- * @param {olx.FrameState} frameState Frame state.
+ * @param {?olx.FrameState} frameState Frame state.
  * @private
  */
 ol.renderer.Map.expireIconCache_ = function(map, frameState) {
@@ -363,7 +363,7 @@ ol.renderer.Map.prototype.renderFrame = goog.nullFunction;
 
 /**
  * @param {ol.Map} map Map.
- * @param {olx.FrameState} frameState Frame state.
+ * @param {?olx.FrameState} frameState Frame state.
  * @private
  */
 ol.renderer.Map.prototype.removeUnusedLayerRenderers_ =
