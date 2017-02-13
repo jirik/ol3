@@ -61,7 +61,7 @@ ol.control.Control = function(options) {
 
   /**
    * @protected
-   * @type {!Array.<?number>}
+   * @type {!Array.<(number|goog.events.ListenableKey)>}
    */
   this.listenerKeys = [];
 
