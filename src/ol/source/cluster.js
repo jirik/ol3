@@ -46,6 +46,12 @@ ol.source.Cluster = function(options) {
   this.distance_ = options.distance !== undefined ? options.distance : 20;
 
   /**
+   * @type {ol.source.Cluster.CompareFunction|undefined}
+   * @private
+   */
+  this.compareFn_ = options.compareFn;
+
+  /**
    * @type {Array.<ol.Feature>}
    * @private
    */
@@ -72,6 +78,13 @@ ol.source.Cluster = function(options) {
       ol.source.Cluster.prototype.refresh_, this);
 };
 ol.inherits(ol.source.Cluster, ol.source.Vector);
+
+
+/**
+ * @typedef {function(ol.Feature, ol.Feature): number}
+ * @api
+ */
+ol.source.Cluster.CompareFunction;
 
 
 /**
@@ -133,11 +146,19 @@ ol.source.Cluster.prototype.cluster_ = function() {
   var extent = ol.extent.createEmpty();
   var mapDistance = this.distance_ * this.resolution_;
   var features = this.source_.getFeatures();
+  if (this.compareFn_) {
+    features.sort(this.compareFn_);
+  }
 
   /**
    * @type {!Object.<string, boolean>}
    */
   var clustered = {};
+
+  /**
+   * @type {Array<ol.Feature>}
+   */
+  var noGeometry = [];
 
   for (var i = 0, ii = features.length; i < ii; i++) {
     var feature = features[i];
@@ -160,11 +181,14 @@ ol.source.Cluster.prototype.cluster_ = function() {
           }
         });
         this.features_.push(this.createCluster_(neighbors));
+      } else {
+        noGeometry.push(feature);
       }
     }
   }
   ol.DEBUG && console.assert(
-      Object.keys(clustered).length == this.source_.getFeatures().length,
+      Object.keys(clustered).length + noGeometry.length
+      == this.source_.getFeatures().length,
       'number of clustered equals number of features in the source');
 };
 
