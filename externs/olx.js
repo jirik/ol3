@@ -4124,7 +4124,8 @@ olx.source.BingMapsOptions.prototype.wrapX;
  *     logo: (string|undefined),
  *     projection: ol.ProjectionLike,
  *     source: ol.source.Vector,
- *     wrapX: (boolean|undefined)}}
+ *     wrapX: (boolean|undefined),
+ *     compareFn: (ol.source.Cluster.CompareFunction|undefined)}}
  */
 olx.source.ClusterOptions;
 
@@ -4135,6 +4136,14 @@ olx.source.ClusterOptions;
  * @api
  */
 olx.source.ClusterOptions.prototype.attributions;
+
+
+/**
+ * Sort features before clustering. Default is undefined (no sorting).
+ * @type {ol.source.Cluster.CompareFunction|undefined}
+ * @api
+ */
+olx.source.ClusterOptions.prototype.compareFn;
 
 
 /**
