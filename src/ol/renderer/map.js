@@ -17,6 +17,7 @@ goog.require('ol.transform');
  * @param {Element} container Container.
  * @param {ol.Map} map Map.
  * @struct
+ * @api
  */
 ol.renderer.Map = function(container, map) {
 

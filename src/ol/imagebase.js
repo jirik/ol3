@@ -13,6 +13,7 @@ goog.require('ol.events.EventType');
  * @param {number} pixelRatio Pixel ratio.
  * @param {ol.Image.State} state State.
  * @param {Array.<ol.Attribution>} attributions Attributions.
+ * @api
  */
 ol.ImageBase = function(extent, resolution, pixelRatio, state, attributions) {
 
