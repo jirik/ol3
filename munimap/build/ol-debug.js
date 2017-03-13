@@ -1,6 +1,6 @@
 // OpenLayers 3. See https://openlayers.org/
 // License: https://raw.githubusercontent.com/openlayers/ol3/master/LICENSE.md
-// Version: v3.19.1
+// Version: v3.19.1-8-g07262a3
 ;(function (root, factory) {
   if (typeof exports === "object") {
     module.exports = factory();
@@ -3794,6 +3794,7 @@ goog.require('ol.events.Event');
  *
  * @constructor
  * @extends {ol.Disposable}
+ * @api
  */
 ol.events.EventTarget = function() {
 
@@ -21370,6 +21371,7 @@ goog.require('ol.transform');
  * @param {Element} container Container.
  * @param {ol.Map} map Map.
  * @struct
+ * @api
  */
 ol.renderer.Map = function(container, map) {
 
@@ -21872,6 +21874,7 @@ goog.require('ol.events.EventType');
  * @param {number} pixelRatio Pixel ratio.
  * @param {ol.Image.State} state State.
  * @param {Array.<ol.Attribution>} attributions Attributions.
+ * @api
  */
 ol.ImageBase = function(extent, resolution, pixelRatio, state, attributions) {
 
@@ -25588,6 +25591,7 @@ goog.provide('ol.render.ReplayGroup');
 /**
  * Base class for replay groups.
  * @constructor
+ * @api
  */
 ol.render.ReplayGroup = function() {};
 
@@ -31778,6 +31782,7 @@ goog.require('ol.webgl');
  * @param {Array.<number>=} opt_arr Array.
  * @param {number=} opt_usage Usage.
  * @struct
+ * @api
  */
 ol.webgl.Buffer = function(opt_arr, opt_usage) {
 
@@ -74782,6 +74787,7 @@ goog.require('ol.Feature');
 goog.require('ol.Geolocation');
 goog.require('ol.Graticule');
 goog.require('ol.Image');
+goog.require('ol.ImageBase');
 goog.require('ol.ImageTile');
 goog.require('ol.Kinetic');
 goog.require('ol.Map');
@@ -74817,6 +74823,7 @@ goog.require('ol.control.ZoomToExtent');
 goog.require('ol.coordinate');
 goog.require('ol.easing');
 goog.require('ol.events.Event');
+goog.require('ol.events.EventTarget');
 goog.require('ol.events.condition');
 goog.require('ol.extent');
 goog.require('ol.extent.Corner');
@@ -74914,9 +74921,11 @@ goog.require('ol.proj.common');
 goog.require('ol.render');
 goog.require('ol.render.Event');
 goog.require('ol.render.Feature');
+goog.require('ol.render.ReplayGroup');
 goog.require('ol.render.VectorContext');
 goog.require('ol.render.canvas.Immediate');
 goog.require('ol.render.webgl.Immediate');
+goog.require('ol.renderer.Map');
 goog.require('ol.size');
 goog.require('ol.source.BingMaps');
 goog.require('ol.source.CartoDB');
@@ -74957,6 +74966,7 @@ goog.require('ol.style.Text');
 goog.require('ol.tilegrid');
 goog.require('ol.tilegrid.TileGrid');
 goog.require('ol.tilegrid.WMTS');
+goog.require('ol.webgl.Buffer');
 goog.require('ol.webgl.Context');
 goog.require('ol.xml');
 
@@ -75435,6 +75445,11 @@ goog.exportProperty(
     ol.events.Event.prototype,
     'stopPropagation',
     ol.events.Event.prototype.stopPropagation);
+
+goog.exportSymbol(
+    'ol.events.EventTarget',
+    ol.events.EventTarget,
+    OPENLAYERS);
 
 goog.exportSymbol(
     'ol.extent.boundingExtent',
@@ -76876,6 +76891,11 @@ goog.exportProperty(
     'load',
     ol.Image.prototype.load);
 
+goog.exportSymbol(
+    'ol.ImageBase',
+    ol.ImageBase,
+    OPENLAYERS);
+
 goog.exportProperty(
     ol.ImageTile.prototype,
     'getImage',
@@ -77992,6 +78012,11 @@ goog.exportProperty(
     ol.render.Feature.prototype.getType);
 
 goog.exportSymbol(
+    'ol.render.ReplayGroup',
+    ol.render.ReplayGroup,
+    OPENLAYERS);
+
+goog.exportSymbol(
     'ol.render.VectorContext',
     ol.render.VectorContext,
     OPENLAYERS);
@@ -78014,6 +78039,11 @@ goog.exportProperty(
 goog.exportSymbol(
     'ol.render.toContext',
     ol.render.toContext,
+    OPENLAYERS);
+
+goog.exportSymbol(
+    'ol.renderer.Map',
+    ol.renderer.Map,
     OPENLAYERS);
 
 goog.exportSymbol(
@@ -79250,6 +79280,11 @@ goog.exportProperty(
     ol.View.prototype,
     'setZoom',
     ol.View.prototype.setZoom);
+
+goog.exportSymbol(
+    'ol.webgl.Buffer',
+    ol.webgl.Buffer,
+    OPENLAYERS);
 
 goog.exportProperty(
     ol.webgl.Context.prototype,
@@ -88565,7 +88600,7 @@ goog.exportProperty(
     ol.View.prototype,
     'unByKey',
     ol.View.prototype.unByKey);
-ol.VERSION = 'v3.19.1';
+ol.VERSION = 'v3.19.1-8-g07262a3';
 OPENLAYERS.ol = ol;
 
   return OPENLAYERS.ol;

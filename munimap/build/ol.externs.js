@@ -956,6 +956,13 @@ ol.events.Event.prototype.stopPropagation = function() {};
 
 
 /**
+ * @constructor
+ * @extends {ol.Disposable}
+ */
+ol.events.EventTarget = function() {};
+
+
+/**
  * @type {Object}
  */
 ol.extent;
@@ -3091,6 +3098,18 @@ ol.Image.prototype.load = function() {};
 
 /**
  * @constructor
+ * @extends {ol.events.EventTarget}
+ * @param {ol.Extent} extent
+ * @param {number|undefined} resolution
+ * @param {number} pixelRatio
+ * @param {ol.Image.State} state
+ * @param {Array.<ol.Attribution>} attributions
+ */
+ol.ImageBase = function(extent, resolution, pixelRatio, state, attributions) {};
+
+
+/**
+ * @constructor
  */
 ol.ImageTile = function() {};
 
@@ -4266,7 +4285,7 @@ ol.Object.prototype.unset = function(key, opt_silent) {};
 
 /**
  * @constructor
- * @extends {ol.Disposable}
+ * @extends {ol.events.EventTarget}
  */
 ol.Observable = function() {};
 
@@ -4695,6 +4714,12 @@ ol.render.Feature.prototype.getType = function() {};
 /**
  * @constructor
  */
+ol.render.ReplayGroup = function() {};
+
+
+/**
+ * @constructor
+ */
 ol.render.VectorContext = function() {};
 
 
@@ -4733,6 +4758,21 @@ ol.render.webgl.Immediate.prototype.drawFeature = function() {};
  * @return {ol.render.canvas.Immediate}
  */
 ol.render.toContext = function(context, opt_options) {};
+
+
+/**
+ * @type {Object}
+ */
+ol.renderer;
+
+
+/**
+ * @constructor
+ * @extends {ol.Disposable}
+ * @param {Element} container
+ * @param {ol.Map} map
+ */
+ol.renderer.Map = function(container, map) {};
 
 
 /**
@@ -6418,6 +6458,14 @@ ol.View.prototype.setZoom = function(zoom) {};
  * @type {Object}
  */
 ol.webgl;
+
+
+/**
+ * @constructor
+ * @param {Array.<number>=} opt_arr
+ * @param {number=} opt_usage
+ */
+ol.webgl.Buffer = function(opt_arr, opt_usage) {};
 
 
 /**
@@ -13719,12 +13767,6 @@ ol.render.Event.prototype.preventDefault = function() {};
 /**
  */
 ol.render.Event.prototype.stopPropagation = function() {};
-
-
-/**
- * @type {Object}
- */
-ol.renderer;
 
 
 /**
