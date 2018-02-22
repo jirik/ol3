@@ -37,7 +37,8 @@ _ol_has_.MAC = ua.indexOf('macintosh') !== -1;
  * @type {number}
  * @api
  */
-_ol_has_.DEVICE_PIXEL_RATIO = window.devicePixelRatio || 1;
+_ol_has_.DEVICE_PIXEL_RATIO =
+    typeof window !== 'undefined' && window.devicePixelRatio || 1;
 
 
 /**
@@ -59,7 +60,7 @@ _ol_has_.CANVAS = _ol_.ENABLE_CANVAS && (
    * @return {boolean} Canvas supported.
    */
   function() {
-    if (!('HTMLCanvasElement' in window)) {
+    if (typeof window !== 'undefined' && !('HTMLCanvasElement' in window)) {
       return false;
     }
     try {
@@ -84,7 +85,8 @@ _ol_has_.CANVAS = _ol_.ENABLE_CANVAS && (
  * @type {boolean}
  * @api
  */
-_ol_has_.DEVICE_ORIENTATION = 'DeviceOrientationEvent' in window;
+_ol_has_.DEVICE_ORIENTATION =
+  typeof window !== 'undefined' && 'DeviceOrientationEvent' in window;
 
 
 /**
@@ -93,7 +95,8 @@ _ol_has_.DEVICE_ORIENTATION = 'DeviceOrientationEvent' in window;
  * @type {boolean}
  * @api
  */
-_ol_has_.GEOLOCATION = 'geolocation' in navigator;
+_ol_has_.GEOLOCATION =
+    typeof navigator !== 'undefined' && 'geolocation' in navigator;
 
 
 /**
@@ -102,7 +105,8 @@ _ol_has_.GEOLOCATION = 'geolocation' in navigator;
  * @type {boolean}
  * @api
  */
-_ol_has_.TOUCH = _ol_.ASSUME_TOUCH || 'ontouchstart' in window;
+_ol_has_.TOUCH = _ol_.ASSUME_TOUCH ||
+  (typeof window !== 'undefined' && 'ontouchstart' in window);
 
 
 /**
@@ -110,7 +114,7 @@ _ol_has_.TOUCH = _ol_.ASSUME_TOUCH || 'ontouchstart' in window;
  * @const
  * @type {boolean}
  */
-_ol_has_.POINTER = 'PointerEvent' in window;
+_ol_has_.POINTER = typeof window !== 'undefined' && 'PointerEvent' in window;
 
 
 /**
@@ -118,7 +122,8 @@ _ol_has_.POINTER = 'PointerEvent' in window;
  * @const
  * @type {boolean}
  */
-_ol_has_.MSPOINTER = !!(navigator.msPointerEnabled);
+_ol_has_.MSPOINTER =
+    !!(typeof navigator !== 'undefined' && navigator.msPointerEnabled);
 
 
 /**
@@ -137,7 +142,7 @@ _ol_has_.WEBGL;
     var textureSize;
     var /** @type {Array.<string>} */ extensions = [];
 
-    if ('WebGLRenderingContext' in window) {
+    if (typeof window !== 'undefined' && 'WebGLRenderingContext' in window) {
       try {
         var canvas = /** @type {HTMLCanvasElement} */
             (document.createElement('CANVAS'));
