@@ -22,5 +22,5 @@ ol.proj.proj4.set = function(proj4) {
  * @return {Proj4} The proj4 function set above or available globally.
  */
 ol.proj.proj4.get = function() {
-  return ol.proj.proj4.cache_ || window['proj4'];
+  return ol.proj.proj4.cache_ || (typeof window !== 'undefined' ? window['proj4'] : undefined);
 };
