@@ -109,7 +109,9 @@ var _ol_style_RegularShape_ = function(options) {
    */
   this.atlasManager_ = options.atlasManager;
 
-  this.render_(this.atlasManager_);
+  if(typeof window !== 'undefined') {
+    this.render_(this.atlasManager_);
+  }
 
   /**
    * @type {boolean}
