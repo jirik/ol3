@@ -9,7 +9,7 @@ var _ol_xml_ = {};
  * @const
  * @type {Document}
  */
-_ol_xml_.DOCUMENT = document.implementation.createDocument('', '', null);
+_ol_xml_.DOCUMENT = typeof document !== 'undefined' ? document.implementation.createDocument('', '', null) : null;
 
 
 /**
