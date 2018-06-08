@@ -21,13 +21,12 @@ _ol_colorlike_.asColorLike = function(color) {
  * @return {boolean} Whether the color is an ol.ColorLike
  */
 _ol_colorlike_.isColorLike = function(color) {
-  console.log('color', color);
   return (
-      typeof color === 'string' ||
+    typeof color === 'string' ||
       (
-          typeof window !== 'undefined' &&
+        typeof window !== 'undefined' &&
           (
-              color instanceof CanvasPattern ||
+            color instanceof CanvasPattern ||
               color instanceof CanvasGradient
           )
       )

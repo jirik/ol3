@@ -105,8 +105,8 @@ var _ol_style_Icon_ = function(opt_options) {
    * @private
    * @type {ol.style.IconImage}
    */
-  this.iconImage_ = _ol_style_IconImage_.get(
-      image, /** @type {string} */ (src), imgSize, this.crossOrigin_, imageState, this.color_);
+  this.iconImage_ = typeof window !== 'undefined' ? _ol_style_IconImage_.get(
+      image, /** @type {string} */ (src), imgSize, this.crossOrigin_, imageState, this.color_) : null;
 
   /**
    * @private

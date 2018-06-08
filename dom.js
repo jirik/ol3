@@ -8,7 +8,7 @@ var _ol_dom_ = {};
  * @return {CanvasRenderingContext2D} The context.
  */
 _ol_dom_.createCanvasContext2D = function(opt_width, opt_height) {
-  if(typeof document === 'undefined') {
+  if (typeof document === 'undefined') {
     throw new Error('DOM not supported');
   }
   var canvas = document.createElement('CANVAS');
