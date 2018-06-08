@@ -8,6 +8,9 @@ goog.provide('ol.dom');
  * @return {CanvasRenderingContext2D} The context.
  */
 ol.dom.createCanvasContext2D = function(opt_width, opt_height) {
+  if(typeof document === 'undefined') {
+    throw new Error('DOM not supported');
+  }
   var canvas = document.createElement('CANVAS');
   if (opt_width) {
     canvas.width = opt_width;

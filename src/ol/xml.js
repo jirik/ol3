@@ -10,7 +10,7 @@ goog.require('ol.array');
  * @const
  * @type {Document}
  */
-ol.xml.DOCUMENT = document.implementation.createDocument('', '', null);
+_ol_xml_.DOCUMENT = typeof document !== 'undefined' ? document.implementation.createDocument('', '', null) : null;
 
 
 /**
