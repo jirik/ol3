@@ -166,6 +166,7 @@ ol.VectorTile.prototype.load = function() {
  * @param {Array.<ol.Feature>} features The loaded features.
  * @param {ol.proj.Projection} dataProjection Data projection.
  * @param {ol.Extent} extent Extent.
+ * @api
  */
 ol.VectorTile.prototype.onLoad = function(features, dataProjection, extent) {
   this.setProjection(dataProjection);
@@ -176,6 +177,7 @@ ol.VectorTile.prototype.onLoad = function(features, dataProjection, extent) {
 
 /**
  * Handler for tile load errors.
+ * @api
  */
 ol.VectorTile.prototype.onError = function() {
   this.setState(ol.TileState.ERROR);
